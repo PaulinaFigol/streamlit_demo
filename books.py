@@ -36,12 +36,12 @@ _lock = RendererAgg.lock
 
 
 sns.set_style('darkgrid')
-#row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
-#    (.1, 2, .2, 1, .1))
-#row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
-#    (.1, 2, .2, 1, .1))
+row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
+    (.1, 2, .2, 1, .1))
+row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
+    (.1, 2, .2, 1, .1))
 
-#row0_1.title('Historical Property Transactions by Postcode')
+row0_1.title('Historical Property Transactions by Postcode')
 
 
 #with row0_2:
@@ -201,7 +201,7 @@ with row3_1, _lock:
     else:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
-
+        
 with row3_2, _lock:
     st.subheader("Property Type")
     fig = Figure()
