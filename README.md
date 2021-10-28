@@ -2,4 +2,4 @@
 
 # Goodreads Streamlit App
 
-Here lies my Streamlit Goodreads app! Check it out [here](http://www.tylerjrichards.com/books_reco.html)
+Here lies my app (work in progress)! Check it out [here](https://share.streamlit.io/paulinafigol/streamlit_demo/books.py)
