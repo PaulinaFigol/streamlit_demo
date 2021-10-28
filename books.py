@@ -183,6 +183,7 @@ with line1_1:
 
     
 has_records = any(data_postcode['bedrooms'])
+print(has_records)
 
 st.write('')
 row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
@@ -205,7 +206,7 @@ with row3_2:
     st.subheader("Property Type")
     fig = Figure()
     ax = fig.subplots()
-    sns.histplot(data=data_postcode, x="bedrooms"  ax=ax)
+    sns.histplot(data=data_postcode, x="bedrooms",  ax=ax)
     ax.set_xlabel('Bedrooms')
     ax.set_ylabel('Number of bedrooms')
     st.pyplot(fig)
