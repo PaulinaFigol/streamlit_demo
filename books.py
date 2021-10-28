@@ -163,6 +163,8 @@ def get_data(user_input):
     data_master = pd.concat(data_master)
     
     return data_master
+
+data_postcode = get_data(user_input)
         
 #@st.cache
 #def get_user_data(user_id, key='ZRnySx6awjQuExO9tKEJXw', v='2', shelf='read', per_page='200'):
@@ -180,7 +182,7 @@ def get_data(user_input):
 line1_spacer1, line1_1, line1_spacer2 = st.columns((.1, 3.2, .1))
 
 with line1_1:
-    if len(data_master)>0:
+    if len(data_postcode)>0:
         st.write("Data loaded")
         st.stop()
     else:
