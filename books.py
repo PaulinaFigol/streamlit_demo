@@ -53,6 +53,7 @@ with row1_1:
         "**To begin, please enter a valid postcode:** 👇")
 
 row2_spacer1, row2_1, row2_spacer2 = st.columns((.1, 3.2, .1))
+
 with row2_1:
 #    default_username = st.selectbox("Select one of our sample Goodreads profiles", (
 #        "89659767-tyler-richards", "7128368-amanda", "17864196-adrien-treuille", "133664988-jordan-pierre"))
@@ -67,10 +68,102 @@ with row2_1:
     if not user_input:
         st.markdown("No postcode typed")
 
-user_id = ''.join(filter(lambda i: i.isdigit(), user_input))
-user_name = user_input.split(user_id, 1)[1].split('-', 1)[1].replace('-', ' ')
-
-
+@st.cache
+def get_data(user_input):
+    def urls(postcode):
+        url_list = list()
+        count = 1
+        for i in range(1,41):
+            url1 = 'https://www.rightmove.co.uk/house-prices/'
+            url2 = '.html?page='
+            a = url1 + postcode + url2 + str(count)
+            url_list.append(a)
+            count+=1
+        return url_list
+    
+    post_list_rightmove = urls(user_input)
+    
+    def get_data(post_list):   
+        address = list()
+        propertyType = list()
+        bedrooms = list()
+        bathrooms = list()
+        transactions_price = list()
+        transactions_date = list()
+        transactions_tenure = list()
+        lat = list()
+        lgt = list()
+        detailUrl = list()
+        
+        def parse_html(html):
+            page = requests.get(html)
+            elem = BeautifulSoup(page.content, features="html.parser")
+            results = soup.find('script',string=lambda text: 'location' in text.lower())
+            text = ''
+            for e in results.descendants:
+                if isinstance(e, str):
+                    text += e.strip()
+                elif e.name in ['br',  'p', 'h1', 'h2', 'h3', 'h4','tr', 'th']:
+                    text += '\n'
+                elif e.name == 'li':
+                    text += '\n- '
+            return text
+        
+        results_text = parse_html(post_list)
+        
+        start = [m.start() for m in re.finditer('address', results_text)]
+        end = start[1:]
+        end.append(results_text.find('sidebar')-1)
+        
+        #Separate addresses
+        items= list()
+        for i in range(0,len(start)):
+            substring = results_text[start[i]-2:end[i]-3]
+            res = json.loads(substring)
+            items.append(res)
+        
+        for i in range(len(items)):
+        #    print(items)
+            address.append(items[i].get("address"))
+            propertyType.append(items[i].get("propertyType"))
+            bedrooms.append(items[i].get("bedrooms"))
+            bathrooms.append(items[i].get("bathrooms"))
+            
+            transaction = items[i].get("transactions")[0]
+            transactions_price.append(transaction.get("displayPrice"))
+            transactions_date.append(transaction.get("dateSold"))
+            transactions_tenure.append(transaction.get("tenure"))
+            
+            loc = items[i].get("location")
+            lat.append(loc.get("lat"))
+            lgt.append(loc.get("lng"))
+            detailUrl.append(items[i].get("detailUrl"))
+                
+        data = {'address': address, 
+                'propertyType': propertyType, 
+                'bedrooms':bedrooms, 
+                'bathrooms':bathrooms,
+                'transactions_price':transactions_price,
+                'transactions_date':transactions_date,
+                'transactions_tenure':transactions_tenure,
+                'lat':lat,
+                'lgt':lgt,
+                'detailUrl':detailUrl}
+        
+        data = pd.DataFrame(data)
+        data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
+        data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
+        return data
+    
+    data_master = pd.DataFrame(columns=['address','propertyType','bedrooms','bathrooms',
+                                    'transactions_price','transactions_date',
+                                     'transactions_tenure','lat','lgt','detailUrl'])
+    
+    data_master = [data_master.append(get_data(post_list_rightmove[i])) for u in range(len(post_list_rightmove))] 
+    data_master = pd.concat(data_master)
+    
+    return data_master
+        
 #@st.cache
 #def get_user_data(user_id, key='ZRnySx6awjQuExO9tKEJXw', v='2', shelf='read', per_page='200'):
 #    api_url_base = 'https://www.goodreads.com/review/list/'
