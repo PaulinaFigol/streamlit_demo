@@ -11,7 +11,6 @@ from PIL import Image
 import gender_guesser.detector as gender
 from streamlit_lottie import st_lottie
 import requests
-import plotly.express as px
 import base64
 import requests
 from bs4 import BeautifulSoup
