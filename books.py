@@ -199,30 +199,26 @@ with line1_1:
 #u_books = len(df['book.id.#text'].unique())
 #u_authors = len(df['book.authors.author.id'].unique())
 #df['read_at_year'] = [i[-4:] if i != None else i for i in df['read_at']]
-#has_records = any(df['read_at_year'])
+has_records = any(data_postcode['bedrooms'])
 #
 #st.write('')
-#row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
-#    (.1, 1, .1, 1, .1))
+row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
+    (.1, 1, .1, 1, .1))
 #
 #
-#with row3_1, _lock:
-#    st.subheader('Books Read')
-#    if has_records:
-#        year_df = pd.DataFrame(
-#            df['read_at_year'].dropna().value_counts()).reset_index()
-#        year_df = year_df.sort_values(by='index')
-#        fig = Figure()
-#        ax = fig.subplots()
-#        sns.barplot(x=year_df['index'],
-#                    y=year_df['read_at_year'], color='goldenrod', ax=ax)
-#        ax.set_xlabel('Year')
-#        ax.set_ylabel('Books Read')
-#        st.pyplot(fig)
-#    else:
-#        st.markdown(
-#            "We do not have information to find out _when_ you read your books")
-#
+with row3_1, _lock:
+    st.subheader('Property Type')
+    if has_records:
+        fig = Figure()
+        ax = fig.subplots()
+        sns.histplot(data=data_postcode, x="bedrooms")
+        ax.set_xlabel('Bedrooms')
+        ax.set_ylabel('Number of bedrooms')
+        st.pyplot(fig)
+    else:
+        st.markdown(
+            "We do not have information to find out the number of bedrooms")
+
 #    st.markdown("It looks like you've read a grand total of **{} books with {} authors,** with {} being your most read author! That's awesome. Here's what your reading habits look like since you've started using Goodreads.".format(
 #        u_books, u_authors, df['book.authors.author.name'].mode()[0]))
 #
