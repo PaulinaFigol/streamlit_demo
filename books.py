@@ -223,27 +223,19 @@ with row3_1, _lock:
 #        u_books, u_authors, df['book.authors.author.name'].mode()[0]))
 #
 #
-#with row3_2, _lock:
-#    st.subheader("Book Age")
-#    fig = Figure()
-#    ax = fig.subplots()
-#    sns.histplot(pd.to_numeric(df['book.publication_year'], errors='coerce').dropna(
-#    ).astype(np.int64), kde_kws={'clip': (0.0, 2020)}, ax=ax, kde=True)
-#    ax.set_xlabel('Book Publication Year')
-#    ax.set_ylabel('Density')
-#    st.pyplot(fig)
-#
-#    avg_book_year = str(
-#        int(np.mean(pd.to_numeric(df['book.publication_year']))))
-#    row = df.sort_values(by='book.publication_year', ascending=False).head(1)
-#    oldest_book = row['book.title_without_series'].iloc[0]
-#    row_young = df.sort_values(by='book.publication_year').head(1)
-#    youngest_book = row_young['book.title_without_series'].iloc[0]
+with row3_2, _lock:
+    st.subheader("Property Type")
+    fig = Figure()
+    ax = fig.subplots()
+    sns.histplot(data=data_postcode, x="bedrooms" , kde_kws={'clip': (0.0, 2020)}, ax=ax, kde=True)
+    ax.set_xlabel('Bedrooms')
+    ax.set_ylabel('Number of bedrooms')
+    st.pyplot(fig)
 #
 #    st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being **{}**.".format(
 #        avg_book_year, oldest_book, youngest_book))
 #    st.markdown("Note that the publication date on Goodreads is the **last** publication date, so the data is altered for any book that has been republished by a publisher.")
-#
+
 #st.write('')
 #row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
 #    (.1, 1, .1, 1, .1))
