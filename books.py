@@ -171,19 +171,6 @@ def get_data(user_input):
 
 data_postcode = get_data(user_input)
         
-#@st.cache
-#def get_user_data(user_id, key='ZRnySx6awjQuExO9tKEJXw', v='2', shelf='read', per_page='200'):
-#    api_url_base = 'https://www.goodreads.com/review/list/'
-#    final_url = api_url_base + user_id + '.xml?key=' + key + \
-#        '&v=' + v + '&shelf=' + shelf + '&per_page=' + per_page
-#    contents = urllib.request.urlopen(final_url).read()
-#    return(contents)
-#
-#
-#user_input = str(user_input)
-#contents = get_user_data(user_id=user_id, v='2', shelf='read', per_page='200')
-#contents = xmltodict.parse(contents)
-#
 line1_spacer1, line1_1, line1_spacer2 = st.columns((.1, 3.2, .1))
 
 with line1_1:
@@ -194,18 +181,14 @@ with line1_1:
         st.write("Invalid postcode")
 
     st.header('Analyzing historical prices for **{}**'.format(user_input))
-#
-#df = json_normalize(contents['GoodreadsResponse']['reviews']['review'])
-#u_books = len(df['book.id.#text'].unique())
-#u_authors = len(df['book.authors.author.id'].unique())
-#df['read_at_year'] = [i[-4:] if i != None else i for i in df['read_at']]
+
+    
 has_records = any(data_postcode['bedrooms'])
-#
+
 st.write('')
 row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
     (.1, 1, .1, 1, .1))
-#
-#
+
 with row3_1, _lock:
     st.subheader('Property Type')
     if has_records:
@@ -219,10 +202,6 @@ with row3_1, _lock:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
 
-#    st.markdown("It looks like you've read a grand total of **{} books with {} authors,** with {} being your most read author! That's awesome. Here's what your reading habits look like since you've started using Goodreads.".format(
-#        u_books, u_authors, df['book.authors.author.name'].mode()[0]))
-#
-#
 with row3_2, _lock:
     st.subheader("Property Type")
     fig = Figure()
@@ -236,30 +215,30 @@ with row3_2, _lock:
 #        avg_book_year, oldest_book, youngest_book))
 #    st.markdown("Note that the publication date on Goodreads is the **last** publication date, so the data is altered for any book that has been republished by a publisher.")
 
-st.write('')
-row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
-    (.1, 1, .1, 1, .1))
-
-with row4_1, _lock:
-    st.subheader("How Do You Rate Your Reads?")
-    rating_df = pd.DataFrame(pd.to_numeric(df[df['rating'].isin(
-        ['1', '2', '3', '4', '5'])]['rating']).value_counts(normalize=True)).reset_index()
-    fig = Figure()
-    ax = fig.subplots()
-    sns.barplot(x=rating_df['index'],
-                y=rating_df['rating'], color="goldenrod", ax=ax)
-    ax.set_ylabel('Percentage')
-    ax.set_xlabel('Your Book Ratings')
-    st.pyplot(fig)
-
-    df['rating_diff'] = pd.to_numeric(df['book.average_rating']) - pd.to_numeric(
-        df[df['rating'].isin(['1', '2', '3', '4', '5'])]['rating'])
-
-    difference = np.mean(df['rating_diff'].dropna())
-    row_diff = df[abs(df['rating_diff']) == abs(df['rating_diff']).max()]
-    title_diff = row_diff['book.title_without_series'].iloc[0]
-    rating_diff = row_diff['rating'].iloc[0]
-    pop_rating_diff = row_diff['book.average_rating'].iloc[0]
+#st.write('')
+#row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
+#    (.1, 1, .1, 1, .1))
+#
+#with row4_1, _lock:
+#    st.subheader("How Do You Rate Your Reads?")
+#    rating_df = pd.DataFrame(pd.to_numeric(df[df['rating'].isin(
+#        ['1', '2', '3', '4', '5'])]['rating']).value_counts(normalize=True)).reset_index()
+#    fig = Figure()
+#    ax = fig.subplots()
+#    sns.barplot(x=rating_df['index'],
+#                y=rating_df['rating'], color="goldenrod", ax=ax)
+#    ax.set_ylabel('Percentage')
+#    ax.set_xlabel('Your Book Ratings')
+#    st.pyplot(fig)
+#
+#    df['rating_diff'] = pd.to_numeric(df['book.average_rating']) - pd.to_numeric(
+#        df[df['rating'].isin(['1', '2', '3', '4', '5'])]['rating'])
+#
+#    difference = np.mean(df['rating_diff'].dropna())
+#    row_diff = df[abs(df['rating_diff']) == abs(df['rating_diff']).max()]
+#    title_diff = row_diff['book.title_without_series'].iloc[0]
+#    rating_diff = row_diff['rating'].iloc[0]
+#    pop_rating_diff = row_diff['book.average_rating'].iloc[0]
 #
 #    if difference > 0:
 #        st.markdown("It looks like on average you rate books **lower** than the average Goodreads user, **by about {} points**. You differed from the crowd most on the book {} where you rated the book {} stars while the general readership rated the book {}".format(
