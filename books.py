@@ -159,7 +159,7 @@ def get_data(user_input):
                                     'transactions_price','transactions_date',
                                      'transactions_tenure','lat','lgt','detailUrl'])
     
-    data_master = [data_master.append(get_data(post_list_rightmove[i])) for u in range(len(post_list_rightmove))] 
+    data_master = [data_master.append(get_data(post_list_rightmove[i])) for i in range(len(post_list_rightmove))] 
     data_master = pd.concat(data_master)
     
     return data_master
