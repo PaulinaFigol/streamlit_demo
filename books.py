@@ -54,18 +54,18 @@ with row1_1:
 
 row2_spacer1, row2_1, row2_spacer2 = st.columns((.1, 3.2, .1))
 with row2_1:
-    default_username = st.selectbox("Select one of our sample Goodreads profiles", (
-        "89659767-tyler-richards", "7128368-amanda", "17864196-adrien-treuille", "133664988-jordan-pierre"))
-    st.markdown("**or**")
+#    default_username = st.selectbox("Select one of our sample Goodreads profiles", (
+#        "89659767-tyler-richards", "7128368-amanda", "17864196-adrien-treuille", "133664988-jordan-pierre"))
+#    st.markdown("**or**")
     user_input = st.text_input(
-        "Input your own Goodreads Link (e.g. https://www.goodreads.com/user/show/89659767-tyler-richards)")
-    need_help = st.expander('Need help? 👉')
-    with need_help:
-        st.markdown(
-            "Having trouble finding your Goodreads profile? Head to the [Goodreads website](https://www.goodreads.com/) and click profile in the top right corner.")
+        "Input your postcode")
+    #need_help = st.expander('Need help? 👉')
+    #with need_help:
+    #    st.markdown(
+    #        "Having trouble finding your Goodreads profile? Head to the [Goodreads website](https://www.goodreads.com/) and click profile in the top right corner.")
 
     if not user_input:
-        user_input = f"https://www.goodreads.com/user/show/{default_username}"
+        st.markdown("Invalid postcode")
 
 user_id = ''.join(filter(lambda i: i.isdigit(), user_input))
 user_name = user_input.split(user_id, 1)[1].split('-', 1)[1].replace('-', ' ')
