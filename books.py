@@ -31,24 +31,26 @@ _lock = RendererAgg.lock
 
 
 sns.set_style('darkgrid')
-row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
-    (.1, 2, .2, 1, .1))
+#row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
+#    (.1, 2, .2, 1, .1))
+#row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
+#    (.1, 2, .2, 1, .1))
 
-row0_1.title('Historical Property Transactions by Postcode')
+#row0_1.title('Historical Property Transactions by Postcode')
 
 
-with row0_2:
-    st.write('')
+#with row0_2:
+#    st.write('')
 
-row0_2.subheader(
-    'A Streamlit web app by [Tyler Richards](http://www.tylerjrichards.com), get my new book on Streamlit [here!](https://www.amazon.com/Getting-Started-Streamlit-Data-Science/dp/180056550X)')
+#row0_2.subheader(
+#    'This app will examin historical property prices by postcode - with real time data from RightMove')
 
 row1_spacer1, row1_1, row1_spacer2 = st.columns((.1, 3.2, .1))
 
 with row1_1:
-    st.markdown("Hey there! Welcome to Tyler's Goodreads Analysis App. This app scrapes (and never keeps or stores!) the books you've read and analyzes data about your book list, including estimating the gender breakdown of the authors, and looking at the distribution of the age and length of book you read. After some nice graphs, it tries to recommend a curated book list to you from a famous public reader, like Barack Obama or Bill Gates. One last tip, if you're on a mobile device, switch over to landscape for viewing ease. Give it a go!")
+    st.markdown("This app will examin historical property prices by postcode - with real time data from RightMove")
     st.markdown(
-        "**To begin, please enter the link to your [Goodreads profile](https://www.goodreads.com/) (or just use mine!).** 👇")
+        "**To begin, please enter a valid postcode:** 👇")
 
 row2_spacer1, row2_1, row2_spacer2 = st.columns((.1, 3.2, .1))
 with row2_1:
