@@ -177,14 +177,16 @@ def get_data(user_input):
 #contents = get_user_data(user_id=user_id, v='2', shelf='read', per_page='200')
 #contents = xmltodict.parse(contents)
 #
-#line1_spacer1, line1_1, line1_spacer2 = st.columns((.1, 3.2, .1))
-#
-#with line1_1:
-#    if int(contents['GoodreadsResponse']['reviews']['@total']) == 0:
-#        st.write("Looks like you did not read any books on Goodreads. Add some books to your profile or try a different profile")
-#        st.stop()
-#
-#    st.header('Analyzing the Reading History of: **{}**'.format(user_name))
+line1_spacer1, line1_1, line1_spacer2 = st.columns((.1, 3.2, .1))
+
+with line1_1:
+    if len(data_master)>0:
+        st.write("Data loaded")
+        st.stop()
+    else:
+        st.write("Invalid postcode")
+
+    st.header('Analyzing historical prices for **{}**'.format(user_input))
 #
 #df = json_normalize(contents['GoodreadsResponse']['reviews']['review'])
 #u_books = len(df['book.id.#text'].unique())
