@@ -103,7 +103,7 @@ def get_data(user_input):
         def parse_html(html):
             page = requests.get(html)
             elem = BeautifulSoup(page.content, features="html.parser")
-            results = soup.find('script',string=lambda text: 'location' in text.lower())
+            results = elem.find('script',string=lambda text: 'location' in text.lower())
             text = ''
             for e in results.descendants:
                 if isinstance(e, str):
