@@ -6,7 +6,7 @@ import xmltodict
 from pandas import json_normalize
 import urllib.request
 import seaborn as sns
-import matplotlib
+import matplotlib.pyplot as plt
 from PIL import Image
 import gender_guesser.detector as gender
 from streamlit_lottie import st_lottie
