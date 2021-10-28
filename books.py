@@ -236,30 +236,30 @@ with row3_2, _lock:
 #        avg_book_year, oldest_book, youngest_book))
 #    st.markdown("Note that the publication date on Goodreads is the **last** publication date, so the data is altered for any book that has been republished by a publisher.")
 
-#st.write('')
-#row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
-#    (.1, 1, .1, 1, .1))
-#
-#with row4_1, _lock:
-#    st.subheader("How Do You Rate Your Reads?")
-#    rating_df = pd.DataFrame(pd.to_numeric(df[df['rating'].isin(
-#        ['1', '2', '3', '4', '5'])]['rating']).value_counts(normalize=True)).reset_index()
-#    fig = Figure()
-#    ax = fig.subplots()
-#    sns.barplot(x=rating_df['index'],
-#                y=rating_df['rating'], color="goldenrod", ax=ax)
-#    ax.set_ylabel('Percentage')
-#    ax.set_xlabel('Your Book Ratings')
-#    st.pyplot(fig)
-#
-#    df['rating_diff'] = pd.to_numeric(df['book.average_rating']) - pd.to_numeric(
-#        df[df['rating'].isin(['1', '2', '3', '4', '5'])]['rating'])
-#
-#    difference = np.mean(df['rating_diff'].dropna())
-#    row_diff = df[abs(df['rating_diff']) == abs(df['rating_diff']).max()]
-#    title_diff = row_diff['book.title_without_series'].iloc[0]
-#    rating_diff = row_diff['rating'].iloc[0]
-#    pop_rating_diff = row_diff['book.average_rating'].iloc[0]
+st.write('')
+row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
+    (.1, 1, .1, 1, .1))
+
+with row4_1, _lock:
+    st.subheader("How Do You Rate Your Reads?")
+    rating_df = pd.DataFrame(pd.to_numeric(df[df['rating'].isin(
+        ['1', '2', '3', '4', '5'])]['rating']).value_counts(normalize=True)).reset_index()
+    fig = Figure()
+    ax = fig.subplots()
+    sns.barplot(x=rating_df['index'],
+                y=rating_df['rating'], color="goldenrod", ax=ax)
+    ax.set_ylabel('Percentage')
+    ax.set_xlabel('Your Book Ratings')
+    st.pyplot(fig)
+
+    df['rating_diff'] = pd.to_numeric(df['book.average_rating']) - pd.to_numeric(
+        df[df['rating'].isin(['1', '2', '3', '4', '5'])]['rating'])
+
+    difference = np.mean(df['rating_diff'].dropna())
+    row_diff = df[abs(df['rating_diff']) == abs(df['rating_diff']).max()]
+    title_diff = row_diff['book.title_without_series'].iloc[0]
+    rating_diff = row_diff['rating'].iloc[0]
+    pop_rating_diff = row_diff['book.average_rating'].iloc[0]
 #
 #    if difference > 0:
 #        st.markdown("It looks like on average you rate books **lower** than the average Goodreads user, **by about {} points**. You differed from the crowd most on the book {} where you rated the book {} stars while the general readership rated the book {}".format(
