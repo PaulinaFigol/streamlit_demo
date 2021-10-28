@@ -201,7 +201,7 @@ with line1_1:
 #df['read_at_year'] = [i[-4:] if i != None else i for i in df['read_at']]
 has_records = any(data_postcode['bedrooms'])
 #
-#st.write('')
+st.write('')
 row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 #
@@ -211,7 +211,7 @@ with row3_1, _lock:
     if has_records:
         fig = Figure()
         ax = fig.subplots()
-        sns.histplot(data=data_postcode, x="bedrooms")
+        sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
         ax.set_xlabel('Bedrooms')
         ax.set_ylabel('Number of bedrooms')
         st.pyplot(fig)
