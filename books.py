@@ -6,7 +6,7 @@ import xmltodict
 from pandas import json_normalize
 import urllib.request
 import seaborn as sns
-import matplotlib.pyplot as plt
+import matplotlib
 from PIL import Image
 import gender_guesser.detector as gender
 from streamlit_lottie import st_lottie
@@ -29,13 +29,12 @@ def load_lottieurl(url: str):
 lottie_book = load_lottieurl('https://assets4.lottiefiles.com/temp/lf20_aKAfIn.json')
 st_lottie(lottie_book, speed=1, height=200, key="initial")
 
-
 matplotlib.use("agg")
 
 _lock = RendererAgg.lock
 
-
 sns.set_style('darkgrid')
+
 row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
     (.1, 2, .2, 1, .1))
 row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
@@ -202,11 +201,11 @@ with row3_1, _lock:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
         
-with row3_2, _lock:
+with row3_2:
     st.subheader("Property Type")
     fig = Figure()
     ax = fig.subplots()
-    sns.histplot(data=data_postcode, x="bedrooms" , kde_kws={'clip': (0.0, 2020)}, ax=ax, kde=True)
+    sns.histplot(data=data_postcode, x="bedrooms"  ax=ax)
     ax.set_xlabel('Bedrooms')
     ax.set_ylabel('Number of bedrooms')
     st.pyplot(fig)
