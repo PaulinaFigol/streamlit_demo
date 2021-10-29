@@ -191,14 +191,17 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
 with row3_1, _lock:
-    st.subheader('Property Type')
+    st.subheader('Bedroom distribution')
     if has_records:
         fig = Figure()
         ax = fig.subplots()
-        sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
+        import plotly.express as px
+        #sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
+        px.bar(data_postcode, x="bedrooms", color='Property_type', height=350)#, barmode='group',, ax=ax)
+        #px.layout.showlegend = False
         ax.set_xlabel('Bedrooms')
         ax.set_ylabel('Number of bedrooms')
-        st.pyplot(fig)
+        st.pyplot(fig)      
     else:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
