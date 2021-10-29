@@ -191,6 +191,7 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
 with row3_1, _lock:
+    from plotly.subplots import make_subplots
     st.subheader('Bedroom distribution')
     if has_records:
         fig = make_subplots(rows=1, cols=2)
