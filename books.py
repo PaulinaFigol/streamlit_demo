@@ -211,7 +211,7 @@ with row3_2:
 data_map = pd.DataFrame({'address': ['London'], 
         'lat': [data_postcode['lat'].median()], 
         'lgt':[data_postcode['lgt'].median()],
-        'circle':[1]})
+        'circle':[10]})
 
 figD = px.scatter_mapbox(data_map, 
                          lat="lat", 
@@ -219,6 +219,7 @@ figD = px.scatter_mapbox(data_map,
                          hover_name="address", 
                          color_discrete_sequence=["fuchsia"], 
                          zoom=10,
+                         opacity = 0.4,
                          size = 'circle')
 figD.update_layout(mapbox_style="open-street-map")
 figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
