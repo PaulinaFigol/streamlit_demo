@@ -207,17 +207,16 @@ st.write('')
 row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
-data_filtered = data_postcode
 
 with row4_1:
 
     user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
-                                    [0, 1, 2, 3, 4, 5, 6, 7, 8])
+                                    [None, 0, 1, 2, 3, 4, 5, 6, 7, 8])
     user_input_property = st.sidebar.selectbox('Choose property type:',
-                                    ['Detached', 'Flat', 'Semi-Detached', 'Terraced'])
+                                    [None, 'Detached', 'Flat', 'Semi-Detached', 'Terraced'])
 
 @st.cache
-def filter_data(user_input_bedrooms, user_input_property):
+def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     
     if user_input_bedrooms != None:
         data_filtered = data_filtered[data_filtered['bedrooms'] == user_input_bedrooms]
@@ -254,7 +253,7 @@ with row4_2, _lock:
         figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
         st.plotly_chart(figD)
     else:
-        filter_data(user_input_bedrooms, user_input_property)
+        filter_data(data_postcode, user_input_bedrooms, user_input_property)
         
 #
 #    st.markdown('***')
