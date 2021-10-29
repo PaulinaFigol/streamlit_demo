@@ -259,6 +259,13 @@ if user_input_bedrooms == None and user_input_property == None:
 else:
     figure_map = filter_data(data_postcode, user_input_bedrooms, user_input_property)
     st.plotly_chart(figure_map)
+    
+import plotly.graph_objects as go
+
+fig = go.Figure(data=[go.Table(header=dict(values=['A Scores', 'B Scores']),
+                 cells=dict(values=[[100, 90, 80, 90], [95, 85, 75, 95]]))
+                     ])
+fig.show()
 #
 #    st.markdown('***')
 #    st.markdown(
