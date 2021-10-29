@@ -198,7 +198,7 @@ with row3_1, _lock:
     if has_records:
         fig = Figure()
         ax = fig.subplots()
-        sns.histplot(data=data_postcode, x="bedrooms",  ax=ax).xlim(0, 8)
+        sns.histplot(data=data_postcode, x="bedrooms",  ax=ax).set_xlim(0, 8)
         ax.set_xlabel('Bedrooms')
         ax.set_ylabel('Number of bedrooms')
         st.pyplot(fig)   
