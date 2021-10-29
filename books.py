@@ -232,29 +232,28 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     return fig
    
+st.write('')    
     
-with row4_2, _lock:
+if user_input_bedrooms == None and user_input_property == None:
+    data_map = pd.DataFrame({'address': [user_input], 
+            'lat': [data_postcode['lat'].median()], 
+            'lgt':[data_postcode['lgt'].median()],
+            'circle':[10]})
     
-    if user_input_bedrooms == None and user_input_property == None:
-        data_map = pd.DataFrame({'address': [user_input], 
-                'lat': [data_postcode['lat'].median()], 
-                'lgt':[data_postcode['lgt'].median()],
-                'circle':[10]})
-        
-        figD = px.scatter_mapbox(data_map, 
-                                 lat="lat", 
-                                 lon="lgt", 
-                                 hover_name="address", 
-                                 color_discrete_sequence=["fuchsia"], 
-                                 zoom=10,
-                                 opacity = 0.4,
-                                 size = 'circle')
-        figD.update_layout(mapbox_style="open-street-map")
-        figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
-        st.plotly_chart(figD)
-    else:
-        figure_map = filter_data(data_postcode, user_input_bedrooms, user_input_property)
-        st.plotly_chart(figure_map)
+    figD = px.scatter_mapbox(data_map, 
+                             lat="lat", 
+                             lon="lgt", 
+                             hover_name="address", 
+                             color_discrete_sequence=["fuchsia"], 
+                             zoom=10,
+                             opacity = 0.4,
+                             size = 'circle')
+    figD.update_layout(mapbox_style="open-street-map")
+    figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
+    st.plotly_chart(figD)
+else:
+    figure_map = filter_data(data_postcode, user_input_bedrooms, user_input_property)
+    st.plotly_chart(figure_map)
 #
 #    st.markdown('***')
 #    st.markdown(
