@@ -57,7 +57,7 @@ with row2_1:
 #    default_username = st.selectbox("Select one of our sample Goodreads profiles", (
 #        "89659767-tyler-richards", "7128368-amanda", "17864196-adrien-treuille", "133664988-jordan-pierre"))
 #    st.markdown("**or**")
-    user_input = st.text_input(
+    user_input = st.sidebar.text_input(
         "Input your postcode")
     #need_help = st.expander('Need help? 👉')
     #with need_help:
