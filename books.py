@@ -253,7 +253,7 @@ with row4_2, _lock:
         figD.update_layout(mapbox_style="open-street-map")
         figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
         st.plotly_chart(figD)
-      else:
+    else:
         filter_data(user_input_bedrooms, user_input_property)
         
 #
