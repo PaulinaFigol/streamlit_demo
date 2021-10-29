@@ -189,215 +189,75 @@ with row3_1, _lock:
         fig_dist = px.histogram(data_postcode, x='bedrooms', color = 'propertyType')
         fig_dist.layout.showlegend = False
         fig_dist.update_layout(bargap=0.2)
-        st.plotly_chart(fig_dist)
-
-        #fig = Figure()
-        #ax = fig.subplots()
-        #sns.histplot(data=data_postcode.reset_index(), x="bedrooms", hue = 'propertyType', multiple="stack", ax=ax)     
-        #ax.set_xlabel('Bedrooms')
-        #ax.set_ylabel('Number of bedrooms')
-        #st.pyplot(fig)   
+        st.plotly_chart(fig_dist)  
     else:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
         
-with row3_2:
+        
+with row3_2, _lock:
     st.subheader("Property Type")
     # plot the value
     df = pd.DataFrame(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'])
     fig = px.pie(df, values='address', names=df.index)
     st.plotly_chart(fig)
+  
+st.write('')
+
+row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
+    (.1, 1, .1, 1, .1))
+
+
+with row4_1:
+
+    user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
+                                    [0, 1, 2, 3, 4, 5, 6, 7, 8])
+    user_input_property = st.sidebar.selectbox('Choose property type:',
+                                    ['Detached', 'Flat', 'Semi-Detached', 'Terraced'])
     
-data_map = pd.DataFrame({'address': [user_input], 
-        'lat': [data_postcode['lat'].median()], 
-        'lgt':[data_postcode['lgt'].median()],
-        'circle':[10]})
+data_filtered = data_postcode
 
-figD = px.scatter_mapbox(data_map, 
-                         lat="lat", 
-                         lon="lgt", 
-                         hover_name="address", 
-                         color_discrete_sequence=["fuchsia"], 
-                         zoom=10,
-                         opacity = 0.4,
-                         size = 'circle')
-figD.update_layout(mapbox_style="open-street-map")
-figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
-st.plotly_chart(figD)
+@st.cache
+def filter_data(user_input_bedrooms, user_input_property):
     
+    if user_input_bedrooms != None:
+        data_filtered = data_filtered[data_filtered['bedrooms'] == user_input_bedrooms]
 
-#
-#    st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being **{}**.".format(
-#        avg_book_year, oldest_book, youngest_book))
-#    st.markdown("Note that the publication date on Goodreads is the **last** publication date, so the data is altered for any book that has been republished by a publisher.")
-
-#st.write('')
-#row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
-#    (.1, 1, .1, 1, .1))
-#
-#with row4_1, _lock:
-#    st.subheader("How Do You Rate Your Reads?")
-#    rating_df = pd.DataFrame(pd.to_numeric(df[df['rating'].isin(
-#        ['1', '2', '3', '4', '5'])]['rating']).value_counts(normalize=True)).reset_index()
-#    fig = Figure()
-#    ax = fig.subplots()
-#    sns.barplot(x=rating_df['index'],
-#                y=rating_df['rating'], color="goldenrod", ax=ax)
-#    ax.set_ylabel('Percentage')
-#    ax.set_xlabel('Your Book Ratings')
-#    st.pyplot(fig)
-#
-#    df['rating_diff'] = pd.to_numeric(df['book.average_rating']) - pd.to_numeric(
-#        df[df['rating'].isin(['1', '2', '3', '4', '5'])]['rating'])
-#
-#    difference = np.mean(df['rating_diff'].dropna())
-#    row_diff = df[abs(df['rating_diff']) == abs(df['rating_diff']).max()]
-#    title_diff = row_diff['book.title_without_series'].iloc[0]
-#    rating_diff = row_diff['rating'].iloc[0]
-#    pop_rating_diff = row_diff['book.average_rating'].iloc[0]
-#
-#    if difference > 0:
-#        st.markdown("It looks like on average you rate books **lower** than the average Goodreads user, **by about {} points**. You differed from the crowd most on the book {} where you rated the book {} stars while the general readership rated the book {}".format(
-#            abs(round(difference, 3)), title_diff, rating_diff, pop_rating_diff))
-#    else:
-#        st.markdown("It looks like on average you rate books **higher** than the average Goodreads user, **by about {} points**. You differed from the crowd most on the book {} where you rated the book {} stars while the general readership rated the book {}".format(
-#            abs(round(difference, 3)), title_diff, rating_diff, pop_rating_diff))
-#
-#with row4_2, _lock:
-#    st.subheader("How do Goodreads Users Rate Your Reads?")
-#    fig = Figure()
-#    ax = fig.subplots()
-#    sns.histplot(pd.to_numeric(df['book.average_rating'], errors='coerce').dropna(
-#    ), kde_kws={'clip': (0.0, 5.0)}, ax=ax, kde=True)
-#    ax.set_xlabel('Goodreads Book Ratings')
-#    ax.set_ylabel('Density')
-#    st.pyplot(fig)
-#    st.markdown("Here is the distribution of average rating by other Goodreads users for the books that you've read. Note that this is a distribution of averages, which explains the lack of extreme values!")
-#
-#st.write('')
-#row5_space1, row5_1, row5_space2, row5_2, row5_space3 = st.columns(
-#    (.1, 1, .1, 1, .1))
-#
-#with row5_1, _lock:
-#    # page breakdown
-#    st.subheader('Book Length Distribution')
-#    fig = Figure()
-#    ax = fig.subplots()
-#    sns.histplot(pd.to_numeric(df['book.num_pages'].dropna()), ax=ax, kde=True)
-#    ax.set_xlabel('Number of Pages')
-#    ax.set_ylabel('Density')
-#    st.pyplot(fig)
-#
-#    book_len_avg = round(np.mean(pd.to_numeric(df['book.num_pages'].dropna())))
-#    book_len_max = pd.to_numeric(df['book.num_pages']).max()
-#    row_long = df[pd.to_numeric(df['book.num_pages']) == book_len_max]
-#    longest_book = row_long['book.title_without_series'].iloc[0]
-#
-#    st.markdown("Your average book length is **{} pages**, and your longest book read is **{} at {} pages!**.".format(
-#        book_len_avg, longest_book, int(book_len_max)))
-#
-#
-#with row5_2, _lock:
-#    # length of time until completion
-#    st.subheader('How Quickly Do You Read?')
-#    if has_records:
-#        df['days_to_complete'] = (pd.to_datetime(
-#            df['read_at']) - pd.to_datetime(df['started_at'])).dt.days
-#        fig = Figure()
-#        ax = fig.subplots()
-#        sns.histplot(pd.to_numeric(
-#            df['days_to_complete'].dropna()), ax=ax, kde=True)
-#        ax.set_xlabel('Days')
-#        ax.set_ylabel('Density')
-#        st.pyplot(fig)
-#        days_to_complete = pd.to_numeric(df['days_to_complete'].dropna())
-#        time_len_avg = 0
-#        if len(days_to_complete):
-#            time_len_avg = round(np.mean(days_to_complete))
-#        st.markdown("On average, it takes you **{} days** between you putting on Goodreads that you're reading a title, and you getting through it! Now let's move on to a gender breakdown of your authors.".format(time_len_avg))
-#    else:
-#        st.markdown(
-#            "We do not have information to find out _when_ you finished reading your books")
-#
-#
-#st.write('')
-#row6_space1, row6_1, row6_space2, row6_2, row6_space3 = st.columns(
-#    (.1, 1, .1, 1, .1))
-#
-#
-#with row6_1, _lock:
-#    st.subheader('Gender Breakdown')
-#    # gender algo
-#    d = gender.Detector()
-#    new = df['book.authors.author.name'].str.split(" ", n=1, expand=True)
-#
-#    df["first_name"] = new[0]
-#    df['author_gender'] = df['first_name'].apply(d.get_gender)
-#    df.loc[df['author_gender'] == 'mostly_male', 'author_gender'] = 'male'
-#    df.loc[df['author_gender'] == 'mostly_female', 'author_gender'] = 'female'
-#
-#    author_gender_df = pd.DataFrame(
-#        df['author_gender'].value_counts(normalize=True)).reset_index()
-#    fig = Figure()
-#    ax = fig.subplots()
-#    sns.barplot(x=author_gender_df['index'],
-#                y=author_gender_df['author_gender'], color="goldenrod", ax=ax)
-#    ax.set_ylabel('Percentage')
-#    ax.set_xlabel('Gender')
-#    st.pyplot(fig)
-#    st.markdown('To get the gender breakdown of the books you have read, this next bit takes the first name of the authors and uses that to predict their gender. These algorithms are far from perfect, and tend to miss non-Western/non-English genders often so take this graph with a grain of salt.')
-#    st.markdown("Note: the package I'm using for this prediction outputs 'andy', which stands for androgenous, whenever multiple genders are nearly equally likely (at some threshold of confidence). It is not, sadly, a prediction of a new gender called andy.")
-#
-#with row6_2, _lock:
-#    st.subheader("Gender Distribution Over Time")
-#
-#    if has_records:
-#        year_author_df = pd.DataFrame(df.groupby(['read_at_year'])[
-#            'author_gender'].value_counts(normalize=True))
-#        year_author_df.columns = ['Percentage']
-#        year_author_df.reset_index(inplace=True)
-#        year_author_df = year_author_df[year_author_df['read_at_year'] != '']
-#        fig = Figure()
-#        ax = fig.subplots()
-#        sns.lineplot(x=year_author_df['read_at_year'], y=year_author_df['Percentage'],
-#                     hue=year_author_df['author_gender'], ax=ax)
-#        ax.set_xlabel('Year')
-#        ax.set_ylabel('Percentage')
-#        st.pyplot(fig)
-#        st.markdown(
-#            "Here you can see the gender distribution over time to see how your reading habits may have changed.")
-#    else:
-#        st.markdown(
-#            "We do not have information to find out _when_ you read your books")
-#    st.markdown(
-#        "Want to read more books written by women? [Here](https://www.penguin.co.uk/articles/2019/mar/best-books-by-female-authors.html) is a great list from Penguin that should be a good start (I'm trying to do better at this myself!).")
-#
-#st.write('')
-#row7_spacer1, row7_1, row7_spacer2 = st.columns((.1, 3.2, .1))
-#
-#with row7_1:
-#    st.header("**Book List Recommendation for {}**".format(user_name))
-#
-#    reco_df = pd.read_csv('recommendations_df.csv')
-#    unique_list_books = df['book.title'].unique()
-#    reco_df['did_user_read'] = reco_df['goodreads_title'].isin(
-#        unique_list_books)
-#    most_in_common = pd.DataFrame(reco_df.groupby('recommender_name').sum(
-#    )).reset_index().sort_values(by='did_user_read', ascending=False).iloc[0][0]
-#    avg_in_common = pd.DataFrame(reco_df.groupby('recommender_name').mean(
-#    )).reset_index().sort_values(by='did_user_read', ascending=False).iloc[0][0]
-#    most_recommended = reco_df[reco_df['recommender_name'] == most_in_common]['recommender'].iloc[0]
-#    avg_recommended = reco_df[reco_df['recommender_name'] == avg_in_common]['recommender'].iloc[0]
-#
-#    def get_link(recommended):
-#        if '-' not in recommended:
-#            link = 'https://bookschatter.com/books/' + recommended
-#        elif '-' in recommended:
-#            link = 'https://www.mostrecommendedbooks.com/' + recommended + '-books'
-#        return(link)
-#    st.markdown('For one last bit of analysis, we scraped a few hundred book lists from famous thinkers in technology, media, and government (everyone from Barack and Michelle Obama to Keith Rabois and Naval Ravikant). We took your list of books read and tried to recommend one of their lists to book through based on information we gleaned from your list')
-#    st.markdown("You read the most books in common with **{}**, and your book list is the most similar on average to **{}**. Find their book lists [here]({}) and [here]({}) respectively.".format(
-#        most_in_common, avg_in_common, get_link(most_recommended), get_link(avg_recommended)))
+   if user_input_property != None:
+       data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
+    
+   data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data)) 
+   data_filtered['lgt_new'] = data_filtered['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data))
+   
+   fig = px.scatter_mapbox(data, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=12)
+   fig.update_layout(mapbox_style="open-street-map")
+   fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+   st.plotly_chart(fig)
+   
+    
+    
+with row4_2, _lock:
+    
+    if user_input_bedrooms == None and user_input_property == None:
+        data_map = pd.DataFrame({'address': [user_input], 
+                'lat': [data_postcode['lat'].median()], 
+                'lgt':[data_postcode['lgt'].median()],
+                'circle':[10]})
+        
+        figD = px.scatter_mapbox(data_map, 
+                                 lat="lat", 
+                                 lon="lgt", 
+                                 hover_name="address", 
+                                 color_discrete_sequence=["fuchsia"], 
+                                 zoom=10,
+                                 opacity = 0.4,
+                                 size = 'circle')
+        figD.update_layout(mapbox_style="open-street-map")
+        figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
+        st.plotly_chart(figD)
+      else:
+        filter_data(user_input_bedrooms, user_input_property)
+        
 #
 #    st.markdown('***')
 #    st.markdown(
