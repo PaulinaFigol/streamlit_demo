@@ -18,6 +18,7 @@ from bs4 import BeautifulSoup
 import re
 import json
 from multiprocessing import Pool
+import plotly
 
 st.set_page_config(layout="wide")
 
