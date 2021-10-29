@@ -207,6 +207,7 @@ st.write('')
 row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
+data_filtered = data_postcode
 
 with row4_1:
 
@@ -214,11 +215,10 @@ with row4_1:
                                     [0, 1, 2, 3, 4, 5, 6, 7, 8])
     user_input_property = st.sidebar.selectbox('Choose property type:',
                                     ['Detached', 'Flat', 'Semi-Detached', 'Terraced'])
-    
-data_filtered = data_postcode
 
 @st.cache
 def filter_data(user_input_bedrooms, user_input_property):
+    
     if user_input_bedrooms != None:
         data_filtered = data_filtered[data_filtered['bedrooms'] == user_input_bedrooms]
         
