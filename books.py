@@ -267,7 +267,15 @@ import plotly.graph_objects as go
 from dash import dash_table
 
 table_loc = st.empty()
-table_loc.table(data_postcode.head(20))
+data_fil = data_postcode[data_postcode['bedrooms']>=0]
+
+if user_input_bedrooms != None:
+    data_fil = data_fil[data_fil['bedrooms']==user_input_bedrooms]
+    
+if user_input_property != None:
+    data_fil = data_fil[data_fil['propertyType']==user_input_property]
+    
+table_loc.table(data_fil)
 #
 #    st.markdown('***')
 #    st.markdown(
