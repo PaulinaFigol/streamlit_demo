@@ -21,6 +21,7 @@ from multiprocessing import Pool
 import plotly
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import plotly.express as px
 
 st.set_page_config(layout="wide")
 
@@ -200,7 +201,7 @@ with row3_1, _lock:
         #fig.update_layout(height=600, width=800, title_text="Subplots with Annotations")
         #fig = Figure()
         #ax = fig.subplots()
-        #import plotly.express as px
+       
         ##sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
         ##px.bar(data_postcode, x="bedrooms", color='propertyType', barmode='group')
         ##px.layout.showlegend = False
