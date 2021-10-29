@@ -35,8 +35,8 @@ _lock = RendererAgg.lock
 
 sns.set_style('darkgrid')
 
-row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
-    (.1, 2, .2, 1, .1))
+#row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
+#    (.1, 2, .2, 1, .1))
 row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
     (.1, 2, .2, 1, .1))
 
@@ -183,7 +183,15 @@ with line1_1:
 
     
 has_records = any(data_postcode['bedrooms'])
-print(has_records)
+
+row4_spacer1, row4_1, row4_spacer2, row4_2, row4_spacer3 = st.columns(
+    (.1, 2, .2, 1, .1))
+
+with row4_1:
+    if has_records:
+        st.write("Valid postcode")
+    else:
+        st.write("Invalid postcode")
 
 st.write('')
 row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
