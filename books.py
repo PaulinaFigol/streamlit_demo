@@ -209,24 +209,16 @@ with row3_1, _lock:
         
 with row3_2:
     st.subheader("Property Type")
-
+    import plotly.express as px
     ##define Seaborn color palette to use
     #colors = sns.color_palette('pastel')[0:len(data_postcode['propertyType'].unique())]
     ###create pie chart
     #plt.pie(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'], 
     #        labels = list(data_postcode[['address','propertyType']].groupby('propertyType').count().index), colors = colors, autopct='%.0f%%')
     #st.pyplot(plt)
-    
-    fig = Figure()
-    #define Seaborn color palette to use
-    colors = sns.color_palette('pastel')[0:len(data_postcode['propertyType'].unique())]
-    ax = fig.subplots()
-    ##create pie chart
-    plt.pie(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'], 
-            labels = list(data_postcode[['address','propertyType']].groupby('propertyType').count().index), colors = colors, autopct='%.0f%%')
-    ax.set_xlabel('Bedrooms')
-    ax.set_ylabel('Number of bedrooms')
-    st.pyplot(fig)
+    df = pd.DataFrame(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'])
+    px.pie(df, values='address', names=df.index)
+
 #
 #    st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being **{}**.".format(
 #        avg_book_year, oldest_book, youngest_book))
