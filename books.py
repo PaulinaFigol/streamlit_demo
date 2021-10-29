@@ -193,14 +193,26 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
 with row3_1, _lock:
     st.subheader('Bedroom distribution')
     if has_records:
-        fig = Figure()
-        ax = fig.subplots()
-        import plotly.express as px
-        #sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
-        px.bar(data_postcode, x="bedrooms", color='propertyType', barmode='group')
-        #px.layout.showlegend = False
-        ax.set_xlabel('Bedrooms')
-        ax.set_ylabel('Number of bedrooms')
+        fig = make_subplots(rows=1, cols=2)
+
+        fig.add_trace(
+            go.bar(
+                data_postcode, x="bedrooms", color='propertyType', barmode='group'
+            ),
+            row=1, col=1
+        )
+        
+        #fig.update_layout(height=600, width=800, title_text="Subplots with Annotations")
+
+        
+        #fig = Figure()
+        #ax = fig.subplots()
+        #import plotly.express as px
+        ##sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
+        ##px.bar(data_postcode, x="bedrooms", color='propertyType', barmode='group')
+        ##px.layout.showlegend = False
+        #ax.set_xlabel('Bedrooms')
+        #ax.set_ylabel('Number of bedrooms')
         st.pyplot(fig)      
     else:
         st.markdown(
