@@ -201,6 +201,7 @@ with row3_1, _lock:
         sns.histplot(data=data_postcode, x="bedrooms",  ax=ax)
         ax.set_xlabel('Bedrooms')
         ax.set_ylabel('Number of bedrooms')
+        ax.xlim(0, 8)
         st.pyplot(fig)   
     else:
         st.markdown(
