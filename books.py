@@ -197,27 +197,22 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
 with row3_1, _lock:
     st.subheader('Bedroom distribution')
     if has_records:
-        fig = Figure()
-        ax = fig.subplots()
-        sns.histplot(data=data_postcode.reset_index(), x="bedrooms", hue = 'propertyType', multiple="stack", ax=ax)     
-        ax.set_xlabel('Bedrooms')
-        ax.set_ylabel('Number of bedrooms')
-        st.pyplot(fig)   
+        fig_dist = px.bar(data_postcode[['bedrooms', 'propertyType']], x='bedrooms', color = 'propertyType')
+        fig_dist.layout.showlegend = False
+        st.plotly_chart(fig_dist)
+
+        #fig = Figure()
+        #ax = fig.subplots()
+        #sns.histplot(data=data_postcode.reset_index(), x="bedrooms", hue = 'propertyType', multiple="stack", ax=ax)     
+        #ax.set_xlabel('Bedrooms')
+        #ax.set_ylabel('Number of bedrooms')
+        #st.pyplot(fig)   
     else:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
         
 with row3_2:
     st.subheader("Property Type")
-    #import plotly.express as px
-    ###define Seaborn color palette to use
-    ##colors = sns.color_palette('pastel')[0:len(data_postcode['propertyType'].unique())]
-    ####create pie chart
-    ##plt.pie(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'], 
-    ##        labels = list(data_postcode[['address','propertyType']].groupby('propertyType').count().index), colors = colors, autopct='%.0f%%')
-    ##st.pyplot(plt)
-    #px.pie(df, values='address', names=df.index)
-    
     # plot the value
     df = pd.DataFrame(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'])
     fig = px.pie(df, values='address', names=df.index)
