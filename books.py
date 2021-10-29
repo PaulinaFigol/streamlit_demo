@@ -266,10 +266,10 @@ import plotly.graph_objects as go
 
 from dash import dash_table
 
-obj_table = dash_table.DataTable(
+obj_table = go.Figure(dash_table.DataTable(
     id='table',
     columns=[{"name": i, "id": i} for i in data_postcode.columns],
-    data=data_postcode.to_dict('records'))
+    data=data_postcode.to_dict('records')))
 
 st.plotly_chart(obj_table, use_container_width = True)
 #
