@@ -184,16 +184,17 @@ with line1_1:
     
 has_records = any(data_postcode['bedrooms'])
 
-row4_spacer1, row4_1, row4_spacer2, row4_2, row4_spacer3 = st.columns(
-    (.1, 2, .2, 1, .1))
-
-with row4_1:
-    if has_records:
-        st.write("Valid postcode")
-    else:
-        st.write("Invalid postcode")
+with _lock:
+    st.subheader('Property Type')
+    fig = Figure()
+    ax = fig.subplots()
+    sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
+    ax.set_xlabel('Bedrooms')
+    ax.set_ylabel('Number of bedrooms')
+    st.pyplot(fig)
 
 st.write('')
+
 row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
