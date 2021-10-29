@@ -219,22 +219,20 @@ data_filtered = data_postcode
 
 @st.cache
 def filter_data(user_input_bedrooms, user_input_property):
-    
     if user_input_bedrooms != None:
         data_filtered = data_filtered[data_filtered['bedrooms'] == user_input_bedrooms]
-
-   if user_input_property != None:
-       data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
+        
+    if user_input_property != None:
+        data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
     
-   data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data)) 
-   data_filtered['lgt_new'] = data_filtered['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data))
-   
-   fig = px.scatter_mapbox(data, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=12)
-   fig.update_layout(mapbox_style="open-street-map")
-   fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-   st.plotly_chart(fig)
-   
+    data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data)) 
+    data_filtered['lgt_new'] = data_filtered['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data))
     
+    fig = px.scatter_mapbox(data, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=12)
+    fig.update_layout(mapbox_style="open-street-map")
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    st.plotly_chart(fig)
+   
     
 with row4_2, _lock:
     
