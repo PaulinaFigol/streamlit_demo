@@ -213,9 +213,9 @@ with row3_2:
     #define Seaborn color palette to use
     colors = sns.color_palette('pastel')[0:len(data_postcode['propertyType'].unique())]
     ##create pie chart
-    fig = plt.pie(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'], 
+    plt.pie(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'], 
             labels = list(data_postcode[['address','propertyType']].groupby('propertyType').count().index), colors = colors, autopct='%.0f%%')
-    st.pyplot(fig)
+    st.pyplot(plt)
     
     #fig = Figure()
     #ax = fig.subplots()
