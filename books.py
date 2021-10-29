@@ -199,6 +199,7 @@ with row3_1, _lock:
     if has_records:
         fig_dist = px.histogram(data_postcode, x='bedrooms', color = 'propertyType')
         fig_dist.layout.showlegend = False
+        fig_dist.update_layout(bargap=0.2)
         st.plotly_chart(fig_dist)
 
         #fig = Figure()
