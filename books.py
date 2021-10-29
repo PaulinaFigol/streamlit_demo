@@ -195,18 +195,9 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
 with row3_1, _lock:
     st.subheader('Bedroom distribution')
     if has_records:
-        fig = make_subplots(rows=1, cols=2)
-
-        fig.add_trace(
-            go.bar(
-                data_postcode, x="bedrooms", color='propertyType', barmode='group'
-            ),
-            row=1, col=1
-        )
-        
+        st.bar_chart(data_postcode['bedrooms])
+                                   
         #fig.update_layout(height=600, width=800, title_text="Subplots with Annotations")
-
-        
         #fig = Figure()
         #ax = fig.subplots()
         #import plotly.express as px
@@ -215,7 +206,7 @@ with row3_1, _lock:
         ##px.layout.showlegend = False
         #ax.set_xlabel('Bedrooms')
         #ax.set_ylabel('Number of bedrooms')
-        st.pyplot(fig)      
+        #st.pyplot(fig)      
     else:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
