@@ -208,7 +208,7 @@ with row3_2:
     fig = px.pie(df, values='address', names=df.index)
     st.plotly_chart(fig)
     
-data_map = pd.DataFrame({'address': ['London'], 
+data_map = pd.DataFrame({'address': [user_input], 
         'lat': [data_postcode['lat'].median()], 
         'lgt':[data_postcode['lgt'].median()],
         'circle':[10]})
