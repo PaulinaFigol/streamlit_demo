@@ -198,8 +198,7 @@ with row3_1, _lock:
     if has_records:
         fig = Figure()
         ax = fig.subplots()
-        sns.distplot(data_postcode['bedrooms'], kde=False, color="propertyType",
-                  hist_kws={"rwidth":1.75,'edgecolor':'black', 'alpha':1.0}, ax=ax)     
+        sns.distplot(data_postcode['bedrooms'],hue="propertyType", ax=ax)     
         ax.set_xlabel('Bedrooms')
         ax.set_ylabel('Number of bedrooms')
         st.pyplot(fig)   
