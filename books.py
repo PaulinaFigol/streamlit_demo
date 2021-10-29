@@ -66,6 +66,7 @@ with row2_1:
 
     if not user_input:
         st.markdown("No postcode typed")
+        st.stop()
 
 @st.cache
 def get_data(user_input):
