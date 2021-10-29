@@ -7,6 +7,7 @@ from pandas import json_normalize
 import urllib.request
 import seaborn as sns
 import matplotlib
+from matplotlib.figure import Figure
 from PIL import Image
 import gender_guesser.detector as gender
 from streamlit_lottie import st_lottie
@@ -17,7 +18,6 @@ from bs4 import BeautifulSoup
 import re
 import json
 from multiprocessing import Pool
-%pylab inline
 
 st.set_page_config(layout="wide")
 
