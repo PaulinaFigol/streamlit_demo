@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup
 import re
 import json
 from multiprocessing import Pool
+%pylab inline
 
 st.set_page_config(layout="wide")
 
@@ -184,17 +185,6 @@ with line1_1:
 
     
 has_records = any(data_postcode['bedrooms'])
-
-with _lock:
-    st.subheader('Property Type')
-    fig = Figure()
-    ax = fig.subplots()
-    sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
-    ax.set_xlabel('Bedrooms')
-    ax.set_ylabel('Number of bedrooms')
-    st.pyplot(fig)
-
-st.write('')
 
 row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
     (.1, 1, .1, 1, .1))
