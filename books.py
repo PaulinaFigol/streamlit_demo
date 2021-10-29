@@ -165,7 +165,7 @@ def get_data(user_input):
     
     return data_master
 
-if user_input != None:
+if user_input != '':
     data_postcode = get_data(user_input)
         
 line1_spacer1, line1_1, line1_spacer2 = st.columns((.1, 3.2, .1))
