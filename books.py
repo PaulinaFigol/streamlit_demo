@@ -216,7 +216,7 @@ with row3_2:
     ##create pie chart
     plt.pie(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'], 
             labels = list(data_postcode[['address','propertyType']].groupby('propertyType').count().index), colors = colors, autopct='%.0f%%')
-    
+    st.pyplot(plt)
     #fig = Figure()
     #ax = fig.subplots()
     #sns.histplot(data = data_postcode.reset_index(), x = 'bedrooms', ax=ax)
