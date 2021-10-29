@@ -197,7 +197,7 @@ with row3_1, _lock:
         ax = fig.subplots()
         import plotly.express as px
         #sns.histplot(data=data_postcode, x="bedrooms" , ax=ax)
-        px.bar(data_postcode, x="bedrooms", color='propertyType', barmode='group', ax=ax)
+        px.bar(data_postcode, x="bedrooms", color='propertyType', barmode='group')
         #px.layout.showlegend = False
         ax.set_xlabel('Bedrooms')
         ax.set_ylabel('Number of bedrooms')
