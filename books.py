@@ -198,7 +198,7 @@ with row3_1, _lock:
     if has_records:
         fig = Figure()
         ax = fig.subplots()
-        sns.histplot(data=data_postcode, x="bedrooms", hue = 'propertyType',  ax=ax)     
+        sns.histplot(data=data_postcode.reset_index(), x="bedrooms", hue = 'propertyType',  ax=ax)     
         ax.set_xlabel('Bedrooms')
         ax.set_ylabel('Number of bedrooms')
         st.pyplot(fig)   
@@ -210,7 +210,7 @@ with row3_2:
     st.subheader("Property Type")
     fig = Figure()
     ax = fig.subplots()
-    sns.histplot(data = data_postcode, x = 'bedrooms', ax=ax)
+    sns.histplot(data = data_postcode.reset_index(), x = 'bedrooms', ax=ax)
     ax.set_xlabel('Bedrooms')
     ax.set_ylabel('Number of bedrooms')
     st.pyplot(fig)
