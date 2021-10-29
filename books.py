@@ -177,7 +177,6 @@ line1_spacer1, line1_1, line1_spacer2 = st.columns((.1, 3.2, .1))
 with line1_1:
     if len(data_postcode)>0:
         st.write("Data loaded")
-        st.stop()
     else:
         st.write("Invalid postcode")
 
