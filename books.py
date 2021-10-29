@@ -197,7 +197,7 @@ with row3_1, _lock:
     st.subheader('Bedroom distribution')
     if has_records:
         #st.bar_chart(data_postcode[['address','bedrooms']].groupby('bedrooms').count(), use_container_width = True)
-        fig = px.bar(data_postcode, x="bedrooms", color='propertyType', barmode='group')                           
+        px.bar(data_postcode, x="bedrooms", color='propertyType', barmode='group')                           
         #fig.update_layout(height=600, width=800, title_text="Subplots with Annotations")
         #fig = Figure()
         #ax = fig.subplots()
@@ -207,7 +207,7 @@ with row3_1, _lock:
         ##px.layout.showlegend = False
         #ax.set_xlabel('Bedrooms')
         #ax.set_ylabel('Number of bedrooms')
-        st.pyplot(fig)      
+        #st.pyplot(fig)      
     else:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
