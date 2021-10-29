@@ -49,7 +49,8 @@ row1_spacer1, row1_1, row1_spacer2 = st.columns((.1, 3.2, .1))
 with row1_1:
     st.markdown("This app will examin historical property prices by postcode - with real time data from RightMove")
     st.markdown(
-        "**To begin, please enter a valid postcode:** 👇")
+        "**👈 To begin, please enter a valid postcode:**")
+    st.write()
 
 row2_spacer1, row2_1, row2_spacer2 = st.columns((.1, 3.2, .1))
 
