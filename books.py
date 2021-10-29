@@ -208,11 +208,18 @@ with row3_2:
     fig = px.pie(df, values='address', names=df.index)
     st.plotly_chart(fig)
     
-    
-data2 = pd.DataFrame({'address': [user_input], 
-        'lat': [data_postcode['lat'].mean()], 
-        'lgt':[data_postcode['lgt'].mean()]})
-figD = px.scatter_mapbox(data2, lat="lat", lon="lgt", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=8)
+data_map = pd.DataFrame({'address': ['London'], 
+        'lat': [data_postcode['lat'].median()], 
+        'lgt':[data_postcode['lgt'].median()],
+        'circle':[1]})
+
+figD = px.scatter_mapbox(data_map, 
+                         lat="lat", 
+                         lon="lgt", 
+                         hover_name="address", 
+                         color_discrete_sequence=["fuchsia"], 
+                         zoom=10,
+                         size = 'circle')
 figD.update_layout(mapbox_style="open-street-map")
 figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
 st.plotly_chart(figD)
