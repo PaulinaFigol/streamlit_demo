@@ -197,7 +197,7 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
 with row3_1, _lock:
     st.subheader('Bedroom distribution')
     if has_records:
-        fig_dist = px.bar(data_postcode[['bedrooms', 'propertyType']], x='bedrooms', color = 'propertyType')
+        fig_dist = px.histogram(data_postcode, x='bedrooms', color = 'propertyType')
         fig_dist.layout.showlegend = False
         st.plotly_chart(fig_dist)
 
