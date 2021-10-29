@@ -186,7 +186,7 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
 with row3_1, _lock:
     st.subheader('Bedroom distribution')
     if has_records:
-        fig_dist = px.histogram(data_postcode, x='bedrooms', color = 'propertyType')
+        fig_dist = px.histogram(data_postcode, x='bedrooms', color = 'propertyType', histnorm='probability density')
         fig_dist.layout.showlegend = False
         fig_dist.update_layout(bargap=0.2)
         st.plotly_chart(fig_dist)
@@ -207,6 +207,7 @@ with row3_2:
     df = pd.DataFrame(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'])
     fig = px.pie(df, values='address', names=df.index)
     st.plotly_chart(fig)
+    
 
 #
 #    st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being **{}**.".format(
