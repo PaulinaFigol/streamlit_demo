@@ -263,11 +263,15 @@ else:
     st.plotly_chart(figure_map)
     
 import plotly.graph_objects as go
+import dash_table
 
-fig = go.Figure(data=[go.Table(header=dict(values=['A Scores', 'B Scores']),
-                 cells=dict(values=[[100, 90, 80, 90], [95, 85, 75, 95]]))
-                     ])
-st.plotly_chart(fig, use_container_width = True)
+object = dash_table.DataTable(
+    id='table',
+    columns=[{"name": i, "id": i} for i in data_postcode.columns],
+    data=df.to_dict('records'),
+)
+
+st.plotly_chart(object, use_container_width = True)
 #
 #    st.markdown('***')
 #    st.markdown(
