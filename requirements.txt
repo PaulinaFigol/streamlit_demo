@@ -9,3 +9,5 @@ seaborn==0.11.2
 streamlit-lottie
 bs4
 plotly
+dash
+dash_table
