@@ -74,6 +74,7 @@ with row2_1:
 
 @st.cache
 def get_data(user_input):
+    
     def urls(postcode):
         url_list = list()
         count = 1
@@ -87,7 +88,7 @@ def get_data(user_input):
     
     post_list_rightmove = urls(user_input)
     
-    def get_data(post_list):   
+    def get_data_postcode(post_list):   
         address = list()
         propertyType = list()
         bedrooms = list()
@@ -157,13 +158,14 @@ def get_data(user_input):
         data = pd.DataFrame(data)
         data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
         data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
+        
         return data
     
     data_master = pd.DataFrame(columns=['address','propertyType','bedrooms','bathrooms',
                                     'transactions_price','transactions_date',
                                      'transactions_tenure','lat','lgt','detailUrl'])
     
-    data_master = [data_master.append(get_data(post_list_rightmove[i])) for i in range(len(post_list_rightmove))] 
+    data_master = [data_master.append(get_data_postcode(post_list_rightmove[i])) for i in range(len(post_list_rightmove))] 
     data_master = pd.concat(data_master)
     
     return data_master
