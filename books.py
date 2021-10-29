@@ -23,6 +23,8 @@ import plotly
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
+import dash
+import dash_table
 
 st.set_page_config(layout="wide")
 
