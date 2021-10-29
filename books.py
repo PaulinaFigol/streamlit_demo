@@ -208,6 +208,15 @@ with row3_2:
     fig = px.pie(df, values='address', names=df.index)
     st.plotly_chart(fig)
     
+    
+data2 = pd.DataFrame({'address': ['London'], 
+        'lat': [51.5074], 
+        'lgt':[0.1278]})
+figD = px.scatter_mapbox(data2, lat="lat", lon="lgt", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=5, height=350)
+figD.update_layout(mapbox_style="open-street-map")
+figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
+st.plotly_chart(figD)
+    
 
 #
 #    st.markdown("Looks like the average publication date is around **{}**, with your oldest book being **{}** and your youngest being **{}**.".format(
