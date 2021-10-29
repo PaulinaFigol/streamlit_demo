@@ -230,7 +230,7 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     fig = px.scatter_mapbox(data_filtered, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=12)
     fig.update_layout(mapbox_style="open-street-map")
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-    st.plotly_chart(fig)
+    return fig
    
     
 with row4_2, _lock:
@@ -253,8 +253,8 @@ with row4_2, _lock:
         figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
         st.plotly_chart(figD)
     else:
-        filter_data(data_postcode, user_input_bedrooms, user_input_property)
-        
+        figure_map = filter_data(data_postcode, user_input_bedrooms, user_input_property)
+        st.plotly_chart(figure_map)
 #
 #    st.markdown('***')
 #    st.markdown(
