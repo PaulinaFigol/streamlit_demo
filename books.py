@@ -77,7 +77,7 @@ with st.sidebar:
     st.write("")
  
 @st.cache
-def message(user_input, user_input_year)
+def message(user_input, user_input_year):
     if user_input == None or user_input_year == '':
         st.write("To continue type a valid postcode **and** starting year")
         st.stop()
