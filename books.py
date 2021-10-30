@@ -226,15 +226,19 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
         
     if user_input_property != None:
         data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
+        
+    if data_filtered:
     
-    data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered)) 
-    data_filtered['lgt_new'] = data_filtered['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered))
-    
-    fig = px.scatter_mapbox(data_filtered, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=11,
-                             width=1200)
-    fig.update_layout(mapbox_style="open-street-map")
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-    return fig
+        data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered)) 
+        data_filtered['lgt_new'] = data_filtered['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered))
+        
+        fig = px.scatter_mapbox(data_filtered, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=11,
+                                 width=1200)
+        fig.update_layout(mapbox_style="open-street-map")
+        fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        return fig
+    else: 
+        st.subheader('No propertis with given filter(s) found')
    
 st.write('')
 st.subheader("View Properties on Map")
@@ -244,7 +248,7 @@ mean_price = data_postcode['transactions_price_numeric'].mean()
 no_properties = len(data_postcode['address'].unique())
 md_results = f"The average price for properties in this postcode is £**{round(mean_price,2):,}** and there are **{no_properties:,}** properties."
 st.markdown(md_results)
-
+st.write('')
 
 if user_input_bedrooms != None and user_input_property != None:
     data_filtered = data_postcode
@@ -252,7 +256,7 @@ if user_input_bedrooms != None and user_input_property != None:
     data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
     mean_price = data_filtered['transactions_price_numeric'].mean()
     no_properties = len(data_filtered['address'].unique())
-    md_results = f"The average price for **{user_input_bedrooms}** bedrooms for the chosen property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** and there are **{no_properties:,}** properties."
+    md_results = f"The average price for the chosen number of bedrooms (**{user_input_bedrooms}**) and property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** and there are **{no_properties:,}** properties."
     st.markdown(md_results)
     
 if user_input_bedrooms != None and user_input_property == None:
