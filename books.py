@@ -223,7 +223,7 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered)) 
     data_filtered['lgt_new'] = data_filtered['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered))
     
-    fig = px.scatter_mapbox(data_filtered, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=12,
+    fig = px.scatter_mapbox(data_filtered, lat="lat_new", lon="lgt_new", hover_name="address", color_discrete_sequence=["fuchsia"], zoom=10,
                              width=1200)
     fig.update_layout(mapbox_style="open-street-map")
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
@@ -242,16 +242,14 @@ if user_input_bedrooms == None and user_input_property == None:
                              lon="lgt", 
                              hover_name="address", 
                              color_discrete_sequence=["fuchsia"], 
-                             zoom=10,
-                             opacity = 0.7,
-                             #size = 'circle',
+                             zoom=12,
                              width=1200)
     figD.update_layout(mapbox_style="open-street-map")
     figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
     st.plotly_chart(figD, use_container_width=True)
 else:
     figure_map = filter_data(data_postcode, user_input_bedrooms, user_input_property)
-    st.plotly_chart(figure_map)
+    st.plotly_chart(figure_map, use_container_width=True)
     
 import plotly.graph_objects as go
 
