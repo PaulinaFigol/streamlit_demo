@@ -60,30 +60,26 @@ with st.sidebar:
     user_input_year= st.sidebar.selectbox('Starting year:',
                                     ['', 2015, 2016, 2017, 2018, 2019, 2020, 2021])
     st.write("*Starting year from which the latest transaction will be shown (until now)")
+    st.write("")
+    st.subheader("2. Choose Features")
+    st.write("")
+    st.write("Below you can choose the desired number of bedrooms and/or property type.")
     
-    if user_input == None or user_input_year == '':
-        st.write("To continue type a valid postcode **and** starting year")
-        st.stop()
-    
-    else:
-        st.write("")
-        st.write("The Property Type pie chart shows a proportion of property types.")
-        st.write("")
-        st.write("The Bedroom distribution bar chart shows count of bedrooms by property type.")
-        st.write("")
-        st.subheader("Hover over the plots to see details or to zoom in.")
-        st.write("")
-        st.subheader("2. Choose Features")
-        st.write("")
-        st.write("Below you can choose the desired number of bedrooms and/or property type. If you want to see everything just click Submit without filling the dropdowns.")
-        
     user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
                                     [None, 0, 1, 2, 3, 4, 5, 6, 7, 8])
+    st.write("The Bedroom distribution bar chart shows count of bedrooms by property type.") 
     st.write("")
     user_input_property = st.sidebar.selectbox('Choose property type:',
                                     [None, 'Detached', 'Flat', 'Semi-Detached', 'Terraced'])
+    st.write("The Property Type pie chart shows a proportion of property types.")
+    st.write("")
+    st.subheader("Hover over the plots to see details or to zoom in.")
+    st.write("")
  
-    
+if user_input == None or user_input_year == '':
+    st.write("To continue type a valid postcode **and** starting year")
+    st.stop()
+        
 @st.cache(allow_output_mutation=True)
 def get_data(user_input, user_input_year):
     
