@@ -193,7 +193,7 @@ with row3_2, _lock:
         fig_dist = px.histogram(data_postcode, x='bedrooms', color = 'propertyType')
         fig_dist.layout.showlegend = False
         fig_dist.update_layout(bargap=0.2)
-        st.plotly_chart(fig_dist)  
+        st.plotly_chart(fig_dist, use_container_width=True)  
     else:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
