@@ -59,7 +59,7 @@ with st.sidebar:
     st.write("")
     st.write("The Bedroom distribution bar chart shows count of bedrooms by property type.")
     st.write("")
-    st.subheader("Hover over the plots to see details or zoom in.")
+    st.subheader("Hover over the plots to see details or to zoom in.")
     st.write("")
 
     if not user_input:
@@ -69,8 +69,6 @@ with st.sidebar:
     st.subheader("2. Choose Features")
     st.write("")
     st.write("Below you can choose the desired number of bedrooms and/or property type. If you want to see everything just click Submit without filling the dropdowns.")
-    st.write("")
-    st.subheader("Click Submit (below) to refresh the map.")
     user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
                                     [None, 0, 1, 2, 3, 4, 5, 6, 7, 8])
     st.write("")
