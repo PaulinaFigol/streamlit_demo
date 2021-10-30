@@ -47,17 +47,24 @@ row1_spacer1, row1_1, row1_spacer2 = st.columns((.1, 3.2, .1))
 with row1_1:
     st.markdown("This app will examin historical property prices by postcode - with real time data from RightMove")
     st.markdown(
-        "**👈 To begin, please enter a valid postcode:**")
+        "**👈 To begin, please enter a valid postcode and start year**")
     st.write()
 
 
 with st.sidebar:
     st.subheader("1. Postcode Filter")
     st.write("Please type a valid postcode and click Submit (it takes a few seconds to load).")
-    user_input = st.sidebar.text_input(
-        "Input your postcode here")
+    user_input = st.sidebar.text_input("Input your postcode here")
+    st.write("")
+    user_input_year= st.sidebar.selectbox('Starting year:',
+                                    [2015, 2016, 2017, 2018, 2019, 2020, 2021])
+    st.write("*Starting year from which the latest transaction will be shown (until now)")
     
-    if user_input:
+    if user_input_year == None or user_input_year == None:
+        st.write("To continue choose the postcode **and** start year")
+        st.stop()
+
+    else user_input:
         st.write("")
         st.write("The Property Type pie chart shows a proportion of property types.")
         st.write("")
@@ -68,24 +75,13 @@ with st.sidebar:
         st.subheader("2. Choose Features")
         st.write("")
         st.write("Below you can choose the desired number of bedrooms and/or property type. If you want to see everything just click Submit without filling the dropdowns.")
-
-    else:
-        st.markdown("No postcode typed")
-        st.stop()
         
     user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
                                     [None, 0, 1, 2, 3, 4, 5, 6, 7, 8])
     st.write("")
     user_input_property = st.sidebar.selectbox('Choose property type:',
                                     [None, 'Detached', 'Flat', 'Semi-Detached', 'Terraced'])
-    st.write("")
-    user_input_year= st.sidebar.selectbox('Starting year:',
-                                    [2015, 2016, 2017, 2018, 2019, 2020, 2021])
-    st.write("*Starting year from which the latest transaction will be shown (until now)")
  
-if user_input_year == None:
-    st.write("To continue choose the year")
-    st.stop()
     
 @st.cache(allow_output_mutation=True)
 def get_data(user_input, user_input_year):
