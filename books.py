@@ -24,7 +24,8 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
 import dash
-import dash_table
+import plotly.graph_objects as go
+from dash import dash_table
 
 st.set_page_config(layout="wide")
 
@@ -217,7 +218,6 @@ st.write('')
 row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
-
 @st.cache
 def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     
@@ -258,9 +258,11 @@ else:
     figure_map = filter_data(data_postcode, user_input_bedrooms, user_input_property)
     st.plotly_chart(figure_map, use_container_width=True)
     
-import plotly.graph_objects as go
 
-from dash import dash_table
+st.write("")
+st.subheader("3. Data Table")
+st.write("The below data shows all properties that contained a link for further reference. Use filter number 2 (Choose Fatures) to see only selected properties.")
+
 
 table_loc = st.empty()
 data_fil = data_postcode[data_postcode['bedrooms']>=0]
@@ -273,10 +275,6 @@ if user_input_property != None:
     
 data_fil['bedrooms'] = pd.to_numeric(data_fil['bedrooms'], downcast='integer')
 data_fil = data_fil[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price','transactions_date', 'transactions_tenure', 'detailUrl']]
-
-st.write("")
-st.subheader("3. Data Table")
-st.write("The below data shows all properties that contained a link for further reference. Use filter number 2 (Choose Fatures) to see only selected properties.")
 
 table_loc.table(data_fil)
 #
