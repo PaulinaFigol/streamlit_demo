@@ -285,7 +285,7 @@ if user_input_bedrooms == None and user_input_property != None:
    st.markdown(md_results)
     
 
-if user_input_bedrooms == None or user_input_property == None:
+if user_input_bedrooms == None and user_input_property == None:
     data_map = pd.DataFrame({'address': [user_input], 
             'lat': [data_postcode['lat'].median()], 
             'lgt':[data_postcode['lgt'].median()],
