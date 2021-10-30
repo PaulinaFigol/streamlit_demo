@@ -274,6 +274,10 @@ if user_input_property != None:
 data_fil['bedrooms'] = pd.to_numeric(data_fil['bedrooms'], downcast='integer')
 data_fil = data_fil[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price','transactions_date', 'transactions_tenure', 'detailUrl']]
 
+st.write("")
+st.subheader("3. Data Table")
+st.write("The below data shows all properties that contained a link for further reference. Use filter number 2 (Choose Fatures) to see only selected properties.")
+
 table_loc.table(data_fil)
 #
 #    st.markdown('***')
