@@ -57,16 +57,8 @@ with row1_1:
 row2_spacer1, row2_1, row2_spacer2 = st.columns((.1, 3.2, .1))
 
 with row2_1:
-#    default_username = st.selectbox("Select one of our sample Goodreads profiles", (
-#        "89659767-tyler-richards", "7128368-amanda", "17864196-adrien-treuille", "133664988-jordan-pierre"))
-#    st.markdown("**or**")
     user_input = st.sidebar.text_input(
         "Input your postcode")
-    #need_help = st.expander('Need help? 👉')
-    #with need_help:
-    #    st.markdown(
-    #        "Having trouble finding your Goodreads profile? Head to the [Goodreads website](https://www.goodreads.com/) and click profile in the top right corner.")
-
     if not user_input:
         st.markdown("No postcode typed")
         st.stop()
@@ -189,6 +181,13 @@ row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
 with row3_1, _lock:
+    st.subheader("Property Type")
+    # plot the value
+    df = pd.DataFrame(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'])
+    fig = px.pie(df, values='address', names=df.index)
+    st.plotly_chart(fig, use_container_width=False)
+        
+with row3_2, _lock:
     st.subheader('Bedroom distribution')
     if has_records:
         fig_dist = px.histogram(data_postcode, x='bedrooms', color = 'propertyType')
@@ -199,14 +198,6 @@ with row3_1, _lock:
         st.markdown(
             "We do not have information to find out the number of bedrooms")
         
-        
-with row3_2, _lock:
-    st.subheader("Property Type")
-    # plot the value
-    df = pd.DataFrame(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'])
-    fig = px.pie(df, values='address', names=df.index)
-    st.plotly_chart(fig)
-  
 st.write('')
 
 row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
