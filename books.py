@@ -63,6 +63,9 @@ with st.sidebar:
     st.write("*Starting year from which the latest transaction will be shown (until now)")
     st.write("")
     
+    if user_input == None or user_input_year == '':
+        st.stop()
+        
     if user_input != '' and user_input_year != None:
         st.subheader("2. Choose Features")
         st.write("")
