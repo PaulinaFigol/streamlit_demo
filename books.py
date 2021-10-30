@@ -286,12 +286,8 @@ if user_input_bedrooms == None and user_input_property != None:
     
 
 if user_input_bedrooms == None and user_input_property == None:
-    data_map = pd.DataFrame({'address': [user_input], 
-            'lat': [data_postcode['lat'].median()], 
-            'lgt':[data_postcode['lgt'].median()],
-            'circle':[10]})
     
-    figD = px.scatter_mapbox(data_postcode, 
+    figD = px.scatter_mapbox(data_postcode_2020onwards, 
                              lat="lat", 
                              lon="lgt", 
                              hover_name="address", 
@@ -302,7 +298,7 @@ if user_input_bedrooms == None and user_input_property == None:
     figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
     st.plotly_chart(figD, use_container_width=True)
 else:
-    filter_data(data_postcode, user_input_bedrooms, user_input_property)
+    filter_data(data_postcode_2020onwards, user_input_bedrooms, user_input_property)
     
     
 
@@ -310,9 +306,8 @@ st.write("")
 st.subheader("Data Table")
 st.write("The below data shows all properties that contained a link for further reference. Choose features on the left to filter by number of bedrooms and property type.")
 
-
-table_loc = st.empty()
 data_fil = data_postcode_2020onwards[data_postcode_2020onwards['bedrooms']>=0]
+table_loc = st.empty()
 
 if user_input_bedrooms != None:
     data_fil = data_fil[data_fil['bedrooms']==user_input_bedrooms]
