@@ -60,7 +60,7 @@ with st.sidebar:
                                     [None, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
     st.write("*Starting year from which the latest transaction will be shown (until now)")
     
-    if user_input_year == None or user_input_year == None:
+    if user_input == None or user_input_year == None:
         st.write("To continue choose the postcode **and** start year")
         st.stop()
 
