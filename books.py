@@ -50,7 +50,7 @@ with row1_1:
 
 row2_spacer1, row2_1, row2_spacer2 = st.columns((.1, 3.2, .1))
 
-with row2_1:
+with st.sidebar:
     st.subheader("1. Postcode Filter")
     st.write("Please type a valid postcode and click Submit (it takes a few seconds to load).")
     user_input = st.sidebar.text_input(
@@ -65,6 +65,11 @@ with row2_1:
     if not user_input:
         st.markdown("No postcode typed")
         st.stop()
+
+    user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
+                                    [None, 0, 1, 2, 3, 4, 5, 6, 7, 8])
+    user_input_property = st.sidebar.selectbox('Choose property type:',
+                                    [None, 'Detached', 'Flat', 'Semi-Detached', 'Terraced'])
 
 @st.cache
 def get_data(user_input):
@@ -206,13 +211,6 @@ st.write('')
 row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
-
-with row4_1:
-
-    user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
-                                    [None, 0, 1, 2, 3, 4, 5, 6, 7, 8])
-    user_input_property = st.sidebar.selectbox('Choose property type:',
-                                    [None, 'Detached', 'Flat', 'Semi-Detached', 'Terraced'])
 
 @st.cache
 def filter_data(data_filtered, user_input_bedrooms, user_input_property):
