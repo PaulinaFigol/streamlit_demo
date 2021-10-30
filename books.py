@@ -227,8 +227,10 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     if user_input_property != None:
         data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
         
-    if data_filtered:
-    
+    if data_filtered.empty:
+        st.subheader('No propertis with given filter(s) found')
+        
+    else:
         data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered)) 
         data_filtered['lgt_new'] = data_filtered['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered))
         
@@ -237,8 +239,6 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
         fig.update_layout(mapbox_style="open-street-map")
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
         return fig
-    else: 
-        st.subheader('No propertis with given filter(s) found')
    
 st.write('')
 st.subheader("View Properties on Map")
