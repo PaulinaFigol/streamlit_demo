@@ -265,9 +265,11 @@ if user_input_bedrooms != None:
     
 if user_input_property != None:
     data_fil = data_fil[data_fil['propertyType']==user_input_property]
-data_fil['bedrooms'] = data_fil['bedrooms'].astype(int)
+    
+data_fil['bedrooms'] = pd.to_numeric(data_fil['bedrooms'], downcast='integer')
 data_fil = data_fil[[[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price',
                        'transactions_date', 'transactions_tenure', 'detailUrl']]]]
+
 table_loc.table(data_fil)
 #
 #    st.markdown('***')
