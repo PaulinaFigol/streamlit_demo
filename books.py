@@ -228,7 +228,8 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
         data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
         
     if data_filtered.empty:
-        st.subheader('No propertis with given filter(s) found')
+        @st.cache(suppress_st_warning=True)
+        return st.subheader('No propertis with given filter(s) found')
         
     else:
         data_filtered['lat_new'] = data_filtered['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered)) 
