@@ -57,7 +57,7 @@ with st.sidebar:
     user_input = st.sidebar.text_input("Input your postcode here")
     st.write("")
     user_input_year= st.sidebar.selectbox('Starting year:',
-                                    [2015, 2016, 2017, 2018, 2019, 2020, 2021])
+                                    [None, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
     st.write("*Starting year from which the latest transaction will be shown (until now)")
     
     if user_input_year == None or user_input_year == None:
