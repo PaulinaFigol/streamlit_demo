@@ -75,15 +75,10 @@ with st.sidebar:
     st.write("")
     st.subheader("Hover over the plots to see details or to zoom in.")
     st.write("")
- 
-@st.cache(suppress_st_warning=True)
-def message(user_input, user_input_year):
-    if user_input == None or user_input_year == '':
-        st.write("To continue type a valid postcode **and** starting year")
-        st.stop()
-        
-message(user_input, user_input_year)
 
+if user_input == None or user_input_year == '':
+    st.stop()
+        
 @st.cache(allow_output_mutation=True)
 def get_data(user_input, user_input_year):
     
