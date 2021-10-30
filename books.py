@@ -185,7 +185,7 @@ with row3_1, _lock:
     # plot the value
     df = pd.DataFrame(data_postcode[['address','propertyType']].groupby('propertyType').count()['address'])
     fig = px.pie(df, values='address', names=df.index)
-    st.plotly_chart(fig, use_container_width=False)
+    st.plotly_chart(fig, use_container_width=True)
         
 with row3_2, _lock:
     st.subheader('Bedroom distribution')
