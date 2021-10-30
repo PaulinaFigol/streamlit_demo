@@ -40,12 +40,6 @@ row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
 row0_1.title('Historical Property Transactions by Postcode')
 
 
-#with row0_2:
-#    st.write('')
-
-#row0_2.subheader(
-#    'This app will examin historical property prices by postcode - with real time data from RightMove')
-
 row1_spacer1, row1_1, row1_spacer2 = st.columns((.1, 3.2, .1))
 
 with row1_1:
@@ -57,8 +51,17 @@ with row1_1:
 row2_spacer1, row2_1, row2_spacer2 = st.columns((.1, 3.2, .1))
 
 with row2_1:
+    st.subheader("1. Postcode Filter")
+    st.write("Please type a valid postcode and click Submit (it takes a few seconds to load).")
     user_input = st.sidebar.text_input(
-        "Input your postcode")
+        "Input your postcode here")
+    st.write("")
+    st.write("The Property Type pie chart shows a proportion of property types.")
+    st.write("")
+    st.write("The Bedroom distribution bar chart shows count of bedrooms by property type.")
+    st.write("")
+    st.write("Hover over the plots to see details or zoom in.")
+
     if not user_input:
         st.markdown("No postcode typed")
         st.stop()
