@@ -247,8 +247,9 @@ st.subheader("View Properties on Map")
 st.write("Choose features on the left to filter by number of bedrooms and property type.")
 
 data_postcode['transactions_price_numeric'] = data_postcode['transactions_price'].apply(lambda x: pd.to_numeric(re.sub('[^A-Za-z0-9]+', '',  x)))
-data_postcode_2020onwards = data_postcode
-data_postcode_2020onwards['transactions_date_dt'] = data_postcode_2020onwards['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
+data_postcode['transactions_date_dt'] = data_postcode['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
+
+data_postcode_2020onwards = data_postcode[data_postcode['transactions_date_dt']>='2020-01-01 00:00:00']
 
 mean_price = data_postcode_2020onwards['transactions_price_numeric'].mean()
 no_properties = len(data_postcode_2020onwards['address'].unique())
