@@ -248,7 +248,7 @@ if user_input_bedrooms == None and user_input_property == None:
                              width=1200)
     figD.update_layout(mapbox_style="open-street-map")
     figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
-    st.plotly_chart(figD, , use_container_width=True)
+    st.plotly_chart(figD, use_container_width=True)
 else:
     figure_map = filter_data(data_postcode, user_input_bedrooms, user_input_property)
     st.plotly_chart(figure_map)
