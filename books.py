@@ -218,7 +218,7 @@ st.write('')
 row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.columns(
     (.1, 1, .1, 1, .1))
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     
     if user_input_bedrooms != None:
@@ -228,7 +228,6 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
         data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
         
     if data_filtered.empty:
-        @st.cache(suppress_st_warning=True)
         st.subheader('No propertis with given filter(s) found')
         
     else:
