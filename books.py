@@ -244,7 +244,7 @@ if user_input_bedrooms == None and user_input_property == None:
                              color_discrete_sequence=["fuchsia"], 
                              zoom=10,
                              opacity = 0.4,
-                             size = 'circle',
+                             #size = 'circle',
                              width=1000)
     figD.update_layout(mapbox_style="open-street-map")
     figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
