@@ -54,21 +54,23 @@ with st.sidebar:
     st.write("Please type a valid postcode and click Submit (it takes a few seconds to load).")
     user_input = st.sidebar.text_input(
         "Input your postcode here")
-    st.write("")
-    st.write("The Property Type pie chart shows a proportion of property types.")
-    st.write("")
-    st.write("The Bedroom distribution bar chart shows count of bedrooms by property type.")
-    st.write("")
-    st.subheader("Hover over the plots to see details or to zoom in.")
-    st.write("")
+    
+    if user_input:
+        st.write("")
+        st.write("The Property Type pie chart shows a proportion of property types.")
+        st.write("")
+        st.write("The Bedroom distribution bar chart shows count of bedrooms by property type.")
+        st.write("")
+        st.subheader("Hover over the plots to see details or to zoom in.")
+        st.write("")
+        st.subheader("2. Choose Features")
+        st.write("")
+        st.write("Below you can choose the desired number of bedrooms and/or property type. If you want to see everything just click Submit without filling the dropdowns.")
 
-    if not user_input:
+    else:
         st.markdown("No postcode typed")
         st.stop()
         
-    st.subheader("2. Choose Features")
-    st.write("")
-    st.write("Below you can choose the desired number of bedrooms and/or property type. If you want to see everything just click Submit without filling the dropdowns.")
     user_input_bedrooms = st.sidebar.selectbox('Choose the number of bedrooms:',
                                     [None, 0, 1, 2, 3, 4, 5, 6, 7, 8])
     st.write("")
