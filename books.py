@@ -239,7 +239,7 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
 st.write('')
 st.subheader("View Properties on Map")
 st.write("Choose features on the left to filter by number of bedrooms and property type.")
-mean_price = data_postcode['price'].mean()
+mean_price = data_postcode['transactions_price'].mean()
 no_properties = len(data_postcode['address'].unique())
 md_results = f"The average price for properties in this postcode is **{mean_price:.2f}**there are **{no_properties:,}** properties."
 st.markdown(md_results)
