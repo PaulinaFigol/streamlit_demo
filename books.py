@@ -64,7 +64,7 @@ with st.sidebar:
         st.write("To continue choose the postcode **and** start year")
         st.stop()
 
-    else user_input:
+    else:
         st.write("")
         st.write("The Property Type pie chart shows a proportion of property types.")
         st.write("")
