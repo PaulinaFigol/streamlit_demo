@@ -261,7 +261,7 @@ else:
 
 st.write("")
 st.subheader("3. Data Table")
-st.write("The below data shows all properties that contained a link for further reference. Use filter number 2 (Choose Fatures) to see only selected properties.")
+st.write("The below data shows all properties that contained a link for further reference. Choose features on the left to filter by number of bedrooms and property type.")
 
 
 table_loc = st.empty()
