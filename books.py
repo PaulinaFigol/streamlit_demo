@@ -237,7 +237,7 @@ if user_input_bedrooms == None and user_input_property == None:
             'lgt':[data_postcode['lgt'].median()],
             'circle':[10]})
     
-    figD = px.scatter_mapbox(data_map, 
+    figD = px.scatter_mapbox(data_postcode, 
                              lat="lat", 
                              lon="lgt", 
                              hover_name="address", 
