@@ -236,7 +236,8 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     return fig
    
-st.write('')    
+st.write('')
+st.subheader("View Properties on Map")
     
 if user_input_bedrooms == None and user_input_property == None:
     data_map = pd.DataFrame({'address': [user_input], 
@@ -260,7 +261,7 @@ else:
     
 
 st.write("")
-st.subheader("3. Data Table")
+st.subheader("Data Table")
 st.write("The below data shows all properties that contained a link for further reference. Choose features on the left to filter by number of bedrooms and property type.")
 
 
