@@ -244,15 +244,15 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
 st.write('')
 st.subheader("View Properties on Map")
 st.write("Choose features on the left to filter by number of bedrooms and property type.")
+
 data_postcode['transactions_price_numeric'] = data_postcode['transactions_price'].apply(lambda x: pd.to_numeric(re.sub('[^A-Za-z0-9]+', '',  x)))
 data_postcode_2020onwards = data_postcode
 
 data_postcode_2020onwards['transactions_date_dt'] = data_postcode_2020onwards['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
-data_postcode_2020onwards['transactions_date_dt'][data_postcode_2020onwards['transactions_date_dt']>='2020-01-01 00:00:00']
 
 mean_price = data_postcode_2020onwards['transactions_price_numeric'].mean()
 no_properties = len(data_postcode_2020onwards['address'].unique())
-md_results = f"The average price (since 1 Jan 2020) for properties in this postcode is £**{round(mean_price,2):,}** and there has been **{no_properties:,}** properties sold in that time."
+md_results = f"The average price (since 1 Jan 2020) for properties in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
 st.markdown(md_results)
 st.write('')
 
@@ -264,7 +264,7 @@ if user_input_bedrooms != None and user_input_property != None:
     
     mean_price = data_filtered['transactions_price_numeric'].mean()
     no_properties = len(data_filtered['address'].unique())
-    md_results = f"The average price (since 1 Jan 2020) for the chosen number of bedrooms (**{user_input_bedrooms}**) and property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** and there has been **{no_properties:,}** properties sold in that time."
+    md_results = f"The average price (since 1 Jan 2020) for the chosen number of bedrooms (**{user_input_bedrooms}**) and property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
     st.markdown(md_results)
     
 if user_input_bedrooms != None and user_input_property == None:
@@ -272,7 +272,7 @@ if user_input_bedrooms != None and user_input_property == None:
     data_filtered = data_filtered[data_filtered['bedrooms'] == user_input_bedrooms]
     mean_price = data_filtered['transactions_price_numeric'].mean()
     no_properties = len(data_filtered['address'].unique())
-    md_results = f"The average price (since 1 Jan 2020) the chosen number of bedrooms (**{user_input_bedrooms}**) in this postcode is £**{round(mean_price,2):,}** and there has been **{no_properties:,}** properties sold in that time."
+    md_results = f"The average price (since 1 Jan 2020) the chosen number of bedrooms (**{user_input_bedrooms}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
     st.markdown(md_results)
     
 if user_input_property == None and user_input_property != None:
@@ -280,7 +280,7 @@ if user_input_property == None and user_input_property != None:
    data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
    mean_price = data_filtered['transactions_price_numeric'].mean()
    no_properties = len(data_filtered['address'].unique())
-   md_results = f"The average price (since 1 Jan 2020) for the chosen property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** and there are **{no_properties:,}** properties sold in that time."
+   md_results = f"The average price (since 1 Jan 2020) for the chosen property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
    st.markdown(md_results)
     
 
