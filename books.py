@@ -54,16 +54,17 @@ with row1_1:
 with st.sidebar:
     st.subheader("1. Postcode Filter")
     st.write("Please type a valid postcode and click Submit (it takes a few seconds to load).")
+    
     user_input = st.sidebar.text_input("Input your postcode here")
     st.write("")
     user_input_year= st.sidebar.selectbox('Starting year:',
-                                    [None, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
+                                    ['', 2015, 2016, 2017, 2018, 2019, 2020, 2021])
     st.write("*Starting year from which the latest transaction will be shown (until now)")
     
-    if user_input == None or user_input_year == None:
-        st.write("To continue choose the postcode **and** start year")
+    if user_input == None or user_input_year == '':
+        st.write("To continue type a valid postcode **and** starting year")
         st.stop()
-
+    
     else:
         st.write("")
         st.write("The Property Type pie chart shows a proportion of property types.")
