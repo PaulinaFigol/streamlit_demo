@@ -184,7 +184,7 @@ def get_data(user_input, user_input_year):
     data_master = pd.concat(data_master)
     
     data_master['transactions_date_dt'] = data_master['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
-    data_year = data_master[data_master['transactions_date_dt']>=str(user_input_year)+'']
+    data_year = data_master[data_master['transactions_date_dt']>=str(user_input_year)+'-01-01 00:00:00']
 
     return data_year
 
