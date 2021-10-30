@@ -83,9 +83,12 @@ with st.sidebar:
                                     [2015, 2016, 2017, 2018, 2019, 2020, 2021])
     st.write("*Starting year from which the latest transaction will be shown (until now)")
  
-
+if user_input_year == None:
+    st.write("To continue choose the year")
+    st.stop()
+    
 @st.cache(allow_output_mutation=True)
-def get_data(user_input):
+def get_data(user_input, user_input_year):
     
     def urls(postcode):
         url_list = list()
@@ -180,10 +183,13 @@ def get_data(user_input):
     data_master = [data_master.append(get_data_postcode(post_list_rightmove[i])) for i in range(len(post_list_rightmove))] 
     data_master = pd.concat(data_master)
     
-    return data_master
+    data_master['transactions_date_dt'] = data_master['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
+    data_year = data_master[data_master['transactions_date_dt']>=str(user_input_year)+'']
+
+    return data_year
 
 if user_input != '':
-    data_postcode = get_data(user_input)
+    data_postcode = get_data(user_input, user_input_year)
     
 if data_postcode.empty:
     st.markdown("No property transactions recorded")
@@ -257,47 +263,47 @@ st.subheader("View Properties on Map")
 st.write("Choose features on the left to filter by number of bedrooms and property type.")
 
 data_postcode['transactions_price_numeric'] = data_postcode['transactions_price'].apply(lambda x: pd.to_numeric(re.sub('[^A-Za-z0-9]+', '',  x)))
-data_postcode['transactions_date_dt'] = data_postcode['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
+#data_postcode['transactions_date_dt'] = data_postcode['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
+#
+#data_postcode_2020onwards = data_postcode[data_postcode['transactions_date_dt']>='2020-01-01 00:00:00']
 
-data_postcode_2020onwards = data_postcode[data_postcode['transactions_date_dt']>='2020-01-01 00:00:00']
-
-mean_price = data_postcode_2020onwards['transactions_price_numeric'].mean()
-no_properties = len(data_postcode_2020onwards['address'].unique())
-md_results = f"The average price (since 1 Jan 2020) for properties in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
+mean_price = data_postcode['transactions_price_numeric'].mean()
+no_properties = len(data_postcode['address'].unique())
+md_results = f"The average price since the beginning of **{user_input_year}** for properties in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
 st.markdown(md_results)
 st.write('')
 
 
 if user_input_bedrooms != None and user_input_property != None:
-    data_filtered = data_postcode_2020onwards
+    data_filtered = data_postcode
     data_filtered = data_filtered[data_filtered['bedrooms'] == user_input_bedrooms]
     data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
     
     mean_price = data_filtered['transactions_price_numeric'].mean()
     no_properties = len(data_filtered['address'].unique())
-    md_results = f"The average price (since 1 Jan 2020) for the chosen number of bedrooms (**{user_input_bedrooms}**) and property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
+    md_results = f"The average price since the beginning of **{user_input_year}** for the chosen number of bedrooms (**{user_input_bedrooms}**) and property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
     st.markdown(md_results)
     
 if user_input_bedrooms != None and user_input_property == None:
-    data_filtered = data_postcode_2020onwards
+    data_filtered = data_postcode
     data_filtered = data_filtered[data_filtered['bedrooms'] == user_input_bedrooms]
     mean_price = data_filtered['transactions_price_numeric'].mean()
     no_properties = len(data_filtered['address'].unique())
-    md_results = f"The average price (since 1 Jan 2020) for the chosen number of bedrooms (**{user_input_bedrooms}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
+    md_results = f"The average price since the beginning of **{user_input_year}** for the chosen number of bedrooms (**{user_input_bedrooms}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
     st.markdown(md_results)
     
 if user_input_bedrooms == None and user_input_property != None:
-   data_filtered = data_postcode_2020onwards
+   data_filtered = data_postcode
    data_filtered = data_filtered[data_filtered['propertyType'] == user_input_property]
    mean_price = data_filtered['transactions_price_numeric'].mean()
    no_properties = len(data_filtered['address'].unique())
-   md_results = f"The average price (since 1 Jan 2020) for the chosen property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
+   md_results = f"The average price since the beginning of **{user_input_year}** for the chosen property type (**{user_input_property}**) in this postcode is £**{round(mean_price,2):,}** with **{no_properties:,}** properties sold."
    st.markdown(md_results)
     
 
 if user_input_bedrooms == None and user_input_property == None:
     
-    figD = px.scatter_mapbox(data_postcode_2020onwards, 
+    figD = px.scatter_mapbox(data_postcode, 
                              lat="lat", 
                              lon="lgt", 
                              hover_name="address", 
@@ -308,7 +314,7 @@ if user_input_bedrooms == None and user_input_property == None:
     figD.update_layout(margin={"r":0,"t":0,"l":0,"b":0}) 
     st.plotly_chart(figD, use_container_width=True)
 else:
-    filter_data(data_postcode_2020onwards, user_input_bedrooms, user_input_property)
+    filter_data(data_postcode, user_input_bedrooms, user_input_property)
     
     
 
@@ -316,7 +322,7 @@ st.write("")
 st.subheader("Data Table")
 st.write("The below data shows all properties that contained a link for further reference. Choose features on the left to filter by number of bedrooms and property type.")
 
-data_fil = data_postcode_2020onwards[data_postcode_2020onwards['bedrooms']>=0]
+data_fil = data_postcode[data_postcode['bedrooms']>=0]
 table_loc = st.empty()
 
 if user_input_bedrooms != None:
