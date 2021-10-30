@@ -79,9 +79,9 @@ with st.sidebar:
     user_input_property = st.sidebar.selectbox('Choose property type:',
                                     [None, 'Detached', 'Flat', 'Semi-Detached', 'Terraced'])
     st.write("")
-    st.write("Choose starting year from which the latest transaction will be shown (until now)")
     user_input_year= st.sidebar.selectbox('Starting year:',
                                     [2015, 2016, 2017, 2018, 2019, 2020, 2021])
+    st.write("* Choose starting year from which the latest transaction will be shown (until now)")
  
 
 @st.cache(allow_output_mutation=True)
