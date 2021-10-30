@@ -78,6 +78,11 @@ with st.sidebar:
     st.write("")
     user_input_property = st.sidebar.selectbox('Choose property type:',
                                     [None, 'Detached', 'Flat', 'Semi-Detached', 'Terraced'])
+    st.write("")
+    st.write("Choose starting year from which the latest transaction will be shown (until now)")
+    user_input_year= st.sidebar.selectbox('Starting year:',
+                                    [2015, 2016, 2017, 2018, 2019, 2020, 2021])
+ 
 
 @st.cache(allow_output_mutation=True)
 def get_data(user_input):
@@ -179,6 +184,11 @@ def get_data(user_input):
 
 if user_input != '':
     data_postcode = get_data(user_input)
+    
+if data_postcode.empty:
+    st.markdown("No property transactions recorded")
+    st.stop()
+    
         
 line1_spacer1, line1_1, line1_spacer2 = st.columns((.1, 3.2, .1))
 
