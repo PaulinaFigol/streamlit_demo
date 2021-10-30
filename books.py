@@ -76,7 +76,7 @@ with st.sidebar:
     st.subheader("Hover over the plots to see details or to zoom in.")
     st.write("")
 
-if user_input == None or user_input_year == '':
+if user_input == '' or user_input_year == None:
     st.stop()
         
 @st.cache(allow_output_mutation=True)
