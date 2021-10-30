@@ -77,10 +77,13 @@ with st.sidebar:
     st.write("")
  
 @st.cache
-if user_input == None or user_input_year == '':
-    st.write("To continue type a valid postcode **and** starting year")
-    st.stop()
+def message(user_input, user_input_year)
+    if user_input == None or user_input_year == '':
+        st.write("To continue type a valid postcode **and** starting year")
+        st.stop()
         
+message(user_input, user_input_year)
+
 @st.cache(allow_output_mutation=True)
 def get_data(user_input, user_input_year):
     
