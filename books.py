@@ -76,6 +76,7 @@ with st.sidebar:
     st.subheader("Hover over the plots to see details or to zoom in.")
     st.write("")
  
+@st.cache
 if user_input == None or user_input_year == '':
     st.write("To continue type a valid postcode **and** starting year")
     st.stop()
