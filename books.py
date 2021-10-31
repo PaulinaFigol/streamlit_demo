@@ -337,7 +337,7 @@ if user_input_property != None:
     
 data_fil['bedrooms'] = pd.to_numeric(data_fil['bedrooms'], downcast='integer')
 data_fil = data_fil[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price','transactions_date', 'transactions_tenure', 'detailUrl']]
-
+print(data_fil)
 table_loc.table(data_fil)
 
 #data_fil = data_postcode[data_postcode['bedrooms']>=0]
