@@ -202,7 +202,7 @@ with line1_1:
     else:
         st.write("Invalid postcode")
 
-    st.header('Analyzing historical prices for **{}**'.format(user_input))
+    st.header('Analysis of properties traded since **{}** in **{}**'.format(user_input_year, user_input))
 
     
 has_records = any(data_postcode['bedrooms'])
