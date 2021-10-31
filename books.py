@@ -324,6 +324,9 @@ table_loc = st.empty()
 
 if user_input_bedrooms != None:
     data_fil = data_fil[data_fil['bedrooms']==user_input_bedrooms]
+    if data_fil.empty:
+        st.write('There is no information for the chosen nummber of bedrooms')
+        data_fil = data_postcode
     
 if user_input_property != None:
     data_fil = data_fil[data_fil['propertyType']==user_input_property]
