@@ -29,6 +29,7 @@ from dash import dash_table
 from datetime import datetime
 from functools import reduce
 import time
+import toolz
 import dask
 
 st.set_page_config(layout="wide")
