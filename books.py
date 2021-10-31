@@ -297,8 +297,8 @@ if user_input_bedrooms == None and user_input_property != None:
     
 
 if user_input_bedrooms == None and user_input_property == None:
-    data_postcode['lat_new'] = data_postcode['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered)) 
-    data_postcode['lgt_new'] = data_postcode['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered))
+    data_postcode['lat_new'] = data_postcode['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_postcode)) 
+    data_postcode['lgt_new'] = data_postcode['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_postcode))
     
     figD = px.scatter_mapbox(data_postcode, 
                              lat="lat_new", 
