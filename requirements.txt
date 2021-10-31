@@ -12,3 +12,4 @@ plotly
 dash
 dash_table
 dask
+toolz
