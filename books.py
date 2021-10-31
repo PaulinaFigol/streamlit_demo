@@ -28,7 +28,6 @@ import plotly.graph_objects as go
 from dash import dash_table
 from datetime import datetime
 from functools import reduce
-import time
 
 
 st.set_page_config(layout="wide")
@@ -90,7 +89,6 @@ if user_input == '' or user_input_year == None:
         
 @st.cache(allow_output_mutation=True)
 def get_data(user_input, user_input_year):
-    time.sleep(2) 
     def urls(postcode):
         url_list = list()
         count = 1
