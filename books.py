@@ -323,7 +323,7 @@ else:
 
 st.write("")
 st.subheader("Data Table")
-st.write("The below data shows all properties that contained a link for further reference. Choose features on the left to filter by number of bedrooms and property type.")
+st.write("The below data shows all properties listed on RightMove. Choose features on the left to filter by number of bedrooms and property type.")
 
 data_fil = data_postcode
     
