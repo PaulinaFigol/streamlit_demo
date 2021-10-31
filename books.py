@@ -29,6 +29,7 @@ from dash import dash_table
 from datetime import datetime
 from functools import reduce
 import time
+import dask
 
 st.set_page_config(layout="wide")
 
@@ -89,6 +90,7 @@ if user_input == '' or user_input_year == None:
         
 @st.cache(allow_output_mutation=True)
 def get_data(user_input, user_input_year):
+    
     def urls(postcode):
         url_list = list()
         count = 1
@@ -140,8 +142,8 @@ def get_data(user_input, user_input_year):
             substring = results_text[start[i]-2:end[i]-3]
             res = json.loads(substring)
             items.append(res)
-        if not items:
-            return list()
+        #if not items:
+        #    return list()
         else:
             for i in range(len(items)):
             #    print(items)
@@ -175,15 +177,19 @@ def get_data(user_input, user_input_year):
                     'lgt':lgt,
                     'detailUrl':detailUrl}
             
-        #data = pd.DataFrame(data)
+        data = pd.DataFrame(data)
         #data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
         #data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
+            
+        return data
         
-            return data
+    master = [dask.delayed(get_data_postcode)(i) for i in set(post_list_rightmove)]
+    df = dask.delayed(pd.concat)(master)
+    df = df.compute()
     
-    master = [get_data_postcode(i) for i in set(post_list_rightmove)]
-    master_filtered = [x for x in master if x]
-    df = pd.DataFrame(reduce(lambda a, b: dict(a, **b), master_filtered))
+    #master = [get_data_postcode(i) for i in set(post_list_rightmove)]
+    #master_filtered = [x for x in master if x]
+    #df = pd.DataFrame(reduce(lambda a, b: dict(a, **b), master_filtered))
     
     df['transactions_date_dt'] = df['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
     data_year = df[df['transactions_date_dt']>=str(user_input_year)+'-01-01 00:00:00']
