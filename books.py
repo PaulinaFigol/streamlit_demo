@@ -321,7 +321,7 @@ st.write("The below data shows all properties that contained a link for further 
 
 data_fil = data_postcode[data_postcode['bedrooms']>=0]
 
-if user_input_bedrooms == None & data_fil.empty:
+if (user_input_bedrooms == None and data_fil.empty):
     st.write('There is no information of the chosen number of bedrooms - returning full dataset instead.')
     data_fil = data_postcode
     
