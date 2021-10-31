@@ -320,14 +320,19 @@ st.subheader("Data Table")
 st.write("The below data shows all properties that contained a link for further reference. Choose features on the left to filter by number of bedrooms and property type.")
 
 data_fil = data_postcode[data_postcode['bedrooms']>=0]
+
+if data_fil.empty:
+    st.write('There is no information for the chosen nummber of bedrooms - returning full data set instead')
+    data_fil = data_postcode
+    
 table_loc = st.empty()
 
+if user_input_bedrooms == None & len(data_postcode[data_postcode['bedrooms']>=0])==0:
+    data_fil = data_postcode
+    
 if user_input_bedrooms != None:
     data_fil = data_fil[data_fil['bedrooms']==user_input_bedrooms]
-    if data_fil.empty:
-        st.write('There is no information for the chosen nummber of bedrooms')
-        data_fil = data_postcode
-    
+
 if user_input_property != None:
     data_fil = data_fil[data_fil['propertyType']==user_input_property]
     
