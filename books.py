@@ -327,7 +327,7 @@ if data_fil.empty:
     
 table_loc = st.empty()
 
-if user_input_bedrooms == None & len(data_postcode[data_postcode['bedrooms']>=0])==0:
+if user_input_bedrooms == None & data_postcode[data_postcode['bedrooms']>=0].empty:
     data_fil = data_postcode
     
 if user_input_bedrooms != None:
