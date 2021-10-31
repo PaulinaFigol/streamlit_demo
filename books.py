@@ -45,7 +45,11 @@ row0_1.title('Historical Property Transactions by Postcode')
 row1_spacer1, row1_1, row1_spacer2 = st.columns((.1, 3.2, .1))
 
 with row1_1:
-    st.markdown("This app examins transactions for properties by given postcode (either full or partial) using real time data from RightMove. The data only takes the latest transaction for each given property. More details can be accessed through Rightmove or by using the URL links attached in the Data Table (last section). The data is not always complete - it might miss the number of bedrooms/property type or number of bathroom and this is adefect coming from Rightmove. Only properties with the hyperlink were attached in the Data Table.")
+    st.markdown("This app examins transactions for properties by given postcode (either full or partial) using real time data from RightMove. The data only takes the latest transaction for each given property.")
+    st.write("")
+    st.markdown("More details can be accessed through Rightmove or by using the URL links attached in the Data Table (last section). The data is not always complete - it might miss the number of bedrooms/property type or number of bathrooms and this is purely a data defect. Only properties with the hyperlink were attached in the Data Table.")
+    st.write("")
+    st.write("")
     st.markdown(
         "**👈 To begin, please enter a valid postcode and start year**")
     st.write()
