@@ -88,7 +88,7 @@ with st.sidebar:
 if user_input == '' or user_input_year == None:
     st.stop()
         
-@st.cache(allow_output_mutation=True, hash_funcs={toolz.functoolz.curry: my_hash_func})
+@st.cache(allow_output_mutation=True)
 def get_data(user_input, user_input_year):
     
     def urls(postcode):
@@ -191,10 +191,10 @@ def get_data(user_input, user_input_year):
     #master_filtered = [x for x in master if x]
     #df = pd.DataFrame(reduce(lambda a, b: dict(a, **b), master_filtered))
     
-    df['transactions_date_dt'] = df['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
-    data_year = df[df['transactions_date_dt']>=str(user_input_year)+'-01-01 00:00:00']
+    #df['transactions_date_dt'] = df['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
+    #data_year = df[df['transactions_date_dt']>=str(user_input_year)+'-01-01 00:00:00']
 
-    return data_year
+    return df
 
 if user_input != '':
     start_time = time.time()
