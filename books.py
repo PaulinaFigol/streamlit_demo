@@ -249,7 +249,6 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
                                  width=1200)
         fig.update_layout(mapbox_style="open-street-map")
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-        data_filtered
         st.plotly_chart(fig, use_container_width=True)
         
    
