@@ -249,8 +249,9 @@ def filter_data(data_filtered, user_input_bedrooms, user_input_property):
                                  width=1200)
         fig.update_layout(mapbox_style="open-street-map")
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        data_filtered
         st.plotly_chart(fig, use_container_width=True)
-        return data_filtered
+        
    
 st.write('')
 st.subheader("View Properties on Map")
@@ -296,10 +297,12 @@ if user_input_bedrooms == None and user_input_property != None:
     
 
 if user_input_bedrooms == None and user_input_property == None:
+    data_postcode['lat_new'] = data_postcode['lat']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered)) 
+    data_postcode['lgt_new'] = data_postcode['lgt']+ np.random.normal(loc=0.0, scale=0.00004, size=len(data_filtered))
     
     figD = px.scatter_mapbox(data_postcode, 
-                             lat="lat", 
-                             lon="lgt", 
+                             lat="lat_new", 
+                             lon="lgt_new", 
                              hover_name="address", 
                              color_discrete_sequence=["fuchsia"], 
                              zoom=12,
