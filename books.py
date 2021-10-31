@@ -88,7 +88,7 @@ with st.sidebar:
 if user_input == '' or user_input_year == None:
     st.stop()
         
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True, hash_funcs={toolz.functoolz.curry: my_hash_func})
 def get_data(user_input, user_input_year):
     
     def urls(postcode):
