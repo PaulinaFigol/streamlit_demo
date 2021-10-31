@@ -139,50 +139,53 @@ def get_data(user_input, user_input_year):
             substring = results_text[start[i]-2:end[i]-3]
             res = json.loads(substring)
             items.append(res)
-        
-        for i in range(len(items)):
-        #    print(items)
-            address.append(items[i].get("address"))
-            propertyType.append(items[i].get("propertyType"))
-            bedrooms.append(items[i].get("bedrooms"))
-            bathrooms.append(items[i].get("bathrooms"))
-            
-            transaction = items[i].get("transactions")[0]
-            transactions_price.append(transaction.get("displayPrice"))
-            transactions_date.append(transaction.get("dateSold"))
-            transactions_tenure.append(transaction.get("tenure"))
-            
-            loc = items[i].get("location")
-            lat.append(loc.get("lat"))
-            lgt.append(loc.get("lng"))
-            detailUrl.append(items[i].get("detailUrl"))
+        if not items:
+            return list()
+        else:
+            for i in range(len(items)):
+            #    print(items)
+                address.append(items[i].get("address"))
+         #       if not items[i].get("address"):
+         #           return list()
+         #           break
+                    
+                propertyType.append(items[i].get("propertyType"))
+                bedrooms.append(items[i].get("bedrooms"))
+                bathrooms.append(items[i].get("bathrooms"))
                 
-        data = {'address': address, 
-                'propertyType': propertyType, 
-                'bedrooms':bedrooms, 
-                'bathrooms':bathrooms,
-                'transactions_price':transactions_price,
-                'transactions_date':transactions_date,
-                'transactions_tenure':transactions_tenure,
-                'lat':lat,
-                'lgt':lgt,
-                'detailUrl':detailUrl}
+                transaction = items[i].get("transactions")[0]
+                transactions_price.append(transaction.get("displayPrice"))
+                transactions_date.append(transaction.get("dateSold"))
+                transactions_tenure.append(transaction.get("tenure"))
+                
+                loc = items[i].get("location")
+                lat.append(loc.get("lat"))
+                lgt.append(loc.get("lng"))
+                detailUrl.append(items[i].get("detailUrl"))
+                    
+            data = {'address': address, 
+                    'propertyType': propertyType, 
+                    'bedrooms':bedrooms, 
+                    'bathrooms':bathrooms,
+                    'transactions_price':transactions_price,
+                    'transactions_date':transactions_date,
+                    'transactions_tenure':transactions_tenure,
+                    'lat':lat,
+                    'lgt':lgt,
+                    'detailUrl':detailUrl}
+            
+        #data = pd.DataFrame(data)
+        #data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
+        #data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
         
-        data = pd.DataFrame(data)
-        data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
-        data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
-        
-        return data
+            return data
     
-    data_master = pd.DataFrame(columns=['address','propertyType','bedrooms','bathrooms',
-                                    'transactions_price','transactions_date',
-                                     'transactions_tenure','lat','lgt','detailUrl'])
+    master = [get_data_postcode(i) for i in set(list_postcodes_bn)]
+    master_filtered = [x for x in master if x]
+    df = pd.DataFrame(reduce(lambda a, b: dict(a, **b), master_filtered))
     
-    data_master = [data_master.append(get_data_postcode(post_list_rightmove[i])) for i in range(len(post_list_rightmove))] 
-    data_master = pd.concat(data_master)
-    
-    data_master['transactions_date_dt'] = data_master['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
-    data_year = data_master[data_master['transactions_date_dt']>=str(user_input_year)+'-01-01 00:00:00']
+    df['transactions_date_dt'] = df['transactions_date'].apply(lambda x: datetime.strptime(x, '%d %b %Y'))
+    data_year = df[df['transactions_date_dt']>=str(user_input_year)+'-01-01 00:00:00']
 
     return data_year
 
