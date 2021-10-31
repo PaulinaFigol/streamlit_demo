@@ -27,6 +27,7 @@ import dash
 import plotly.graph_objects as go
 from dash import dash_table
 from datetime import datetime
+from functools import reduce
 
 st.set_page_config(layout="wide")
 
@@ -180,7 +181,7 @@ def get_data(user_input, user_input_year):
         
             return data
     
-    master = [get_data_postcode(i) for i in set(list_postcodes_bn)]
+    master = [get_data_postcode(i) for i in set(post_list_rightmove)]
     master_filtered = [x for x in master if x]
     df = pd.DataFrame(reduce(lambda a, b: dict(a, **b), master_filtered))
     
