@@ -325,11 +325,7 @@ st.write("")
 st.subheader("Data Table")
 st.write("The below data shows all properties that contained a link for further reference. Choose features on the left to filter by number of bedrooms and property type.")
 
-data_fil = data_postcode[data_postcode['bedrooms']>=0]
-
-if (user_input_bedrooms == None and data_fil.empty):
-    st.write('There is no information of the chosen number of bedrooms - returning full dataset instead.')
-    data_fil = data_postcode
+data_fil = data_postcode
     
 table_loc = st.empty()
 
@@ -343,6 +339,25 @@ data_fil['bedrooms'] = pd.to_numeric(data_fil['bedrooms'], downcast='integer')
 data_fil = data_fil[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price','transactions_date', 'transactions_tenure', 'detailUrl']]
 
 table_loc.table(data_fil)
+
+#data_fil = data_postcode[data_postcode['bedrooms']>=0]
+#
+#if (user_input_bedrooms == None and data_fil.empty):
+#    st.write('There is no information of the chosen number of bedrooms - returning full dataset instead.')
+#    data_fil = data_postcode
+#    
+#table_loc = st.empty()
+#
+#if user_input_bedrooms != None:
+#    data_fil = data_fil[data_fil['bedrooms']==user_input_bedrooms]
+#
+#if user_input_property != None:
+#    data_fil = data_fil[data_fil['propertyType']==user_input_property]
+#    
+#data_fil['bedrooms'] = pd.to_numeric(data_fil['bedrooms'], downcast='integer')
+#data_fil = data_fil[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price','transactions_date', 'transactions_tenure', 'detailUrl']]
+#
+#table_loc.table(data_fil)
 #
 #    st.markdown('***')
 #    st.markdown(
