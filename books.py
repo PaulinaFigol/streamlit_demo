@@ -28,7 +28,7 @@ import plotly.graph_objects as go
 from dash import dash_table
 from datetime import datetime
 from functools import reduce
-
+import time
 
 st.set_page_config(layout="wide")
 
