@@ -191,7 +191,10 @@ def get_data(user_input, user_input_year):
     return data_year
 
 if user_input != '':
+    start_time = time.time()
+    
     data_postcode = get_data(user_input, user_input_year)
+    print("Dataset Loading Time", time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time)))
     
 if data_postcode.empty:
     st.markdown("No property transactions recorded")
