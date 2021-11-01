@@ -335,7 +335,7 @@ st.write("")
 st.subheader("Data Table")
 st.write("The below data shows all properties listed on RightMove. Choose features on the left to filter by number of bedrooms and property type.")
 
-data_postcode['bedrooms'] = pd.to_numeric(data_postcode['bedrooms'], downcast='integer')
+data_postcode.loc[data_postcode['bedrooms'].notnull(),'bedrooms'] = pd.to_numeric(data_postcode.loc[data_postcode['bedrooms'].notnull(),'bedrooms'], downcast='integer')
 
 data_fil = data_postcode
     
