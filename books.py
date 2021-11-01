@@ -178,11 +178,11 @@ def get_data(user_input, user_input_year):
                     'lgt':lgt,
                     'detailUrl':detailUrl}
             
-        data = pd.DataFrame(data)
+            data = pd.DataFrame(data)
         #data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
         #data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
             
-        return data
+            return data
         
     #master = [dask.delayed(get_data_postcode)(i) for i in set(post_list_rightmove)]
     #df = dask.delayed(pd.concat)(master)
