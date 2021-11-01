@@ -335,10 +335,7 @@ st.write("")
 st.subheader("Data Table")
 st.write("The below data shows all properties listed on RightMove. Choose features on the left to filter by number of bedrooms and property type.")
 
-#data_postcode['bedrooms'] = pd.to_numeric(data_postcode['bedrooms'], downcast='integer')
-
-#Converting to string - otherwise it gets returned as float with multiple decimals
-data_postcode['bedrooms'] = data_postcode['bedrooms'].astype(str)
+data_postcode['bedrooms'] = pd.to_numeric(data_postcode['bedrooms'], downcast='integer')
 
 data_fil = data_postcode
     
