@@ -178,9 +178,9 @@ def get_data(user_input, user_input_year):
                     'lgt':lgt,
                     'detailUrl':detailUrl}
             
-            data = pd.DataFrame(data)
-        #data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
-        #data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
+            #data = pd.DataFrame(data)
+            #data['transactions_price'] = data.transactions_price.apply(lambda x: int(''.join(filter(str.isdigit, x))))
+            #data['transactions_price'] = data['transactions_price'].apply(lambda x: "{:,}".format(x))
             
             return data
         
