@@ -335,6 +335,7 @@ st.write("")
 st.subheader("Data Table")
 st.write("The below data shows all properties listed on RightMove. Choose features on the left to filter by number of bedrooms and property type.")
 
+data_postcode['bedrooms'] = pd.to_numeric(data_postcode['bedrooms'], downcast='integer')
 data_fil = data_postcode
     
 table_loc = st.empty()
@@ -345,7 +346,6 @@ if user_input_bedrooms != None:
 if user_input_property != None:
     data_fil = data_fil[data_fil['propertyType']==user_input_property]
     
-data_fil['bedrooms'] = pd.to_numeric(data_fil['bedrooms'], downcast='integer')
 data_fil = data_fil[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price','transactions_date', 'transactions_tenure', 'detailUrl']]
 table_loc.table(data_fil)
 
