@@ -11,5 +11,6 @@ bs4
 plotly
 dash
 dash_table
+mysql.connector
 #dask
 #toolz
