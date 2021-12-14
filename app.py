@@ -29,6 +29,7 @@ from dash import dash_table
 from datetime import datetime
 from functools import reduce
 import time
+import mysql.connector
 
 st.set_page_config(layout="wide")
 
@@ -348,22 +349,6 @@ if user_input_property != None:
 data_fil = data_fil[['address', 'propertyType', 'bedrooms', 'bathrooms','transactions_price','transactions_date', 'transactions_tenure', 'detailUrl']]
 table_loc.table(data_fil)
 
-import streamlit as st
-import mysql.connector
-
-# Initialize connection.
-# Uses st.cache to only run once.
-
-hash_funcs={'_thread.RLock' : lambda _: None, 
-                '_thread.lock' : lambda _: None, 
-                'builtins.PyCapsule': lambda _: None, 
-                '_io.TextIOWrapper' : lambda _: None, 
-                'builtins.weakref': lambda _: None,
-                'builtins.dict' : lambda _:None}
-
-
-import streamlit as st
-import mysql.connector
 
 # Initialize connection.
 # Uses st.cache to only run once.
@@ -380,16 +365,17 @@ hash_funcs={'_thread.RLock' : lambda _: None,
 def init_connection():
     return mysql.connector.connect(**st.secrets["mysql"])
 
-conn = init_connection()
-
-# Perform query.
-# Uses st.cache to only rerun when the query changes or after 10 min.
-@st.cache(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
-
-rows = run_query("SELECT * from properties;")
-
-table_loc.table(rows)
+#conn = init_connection()
+#
+## Perform query.
+## Uses st.cache to only rerun when the query changes or after 10 min.
+#@st.cache(ttl=600)
+#def run_query(query):
+#    with conn.cursor() as cur:
+#        cur.execute(query)
+#        return cur.fetchall()
+#
+#rows = run_query("SELECT * from properties;")
+#
+#table_loc.table(rows)
+#
