@@ -231,7 +231,7 @@ else:
 
 #rows = run_query(sql)
 
-rows = pd.DataFrame.from_records(run_query(query))
+rows = pd.DataFrame.from_records(run_query(sql))
 
 #rows['lgt'] = rows['lgt'].astype(float)
 #rows['lat'] = rows['lat'].astype(float)
