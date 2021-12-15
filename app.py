@@ -231,8 +231,8 @@ else:
 
 rows = run_query(sql)
 
-rows['lgt'] = rows['lgt'].astype(float)
-rows['lat'] = rows['lat'].astype(float)
+#rows['lgt'] = rows['lgt'].astype(float)
+#rows['lat'] = rows['lat'].astype(float)
 ####################################
 
 if user_input != '':
