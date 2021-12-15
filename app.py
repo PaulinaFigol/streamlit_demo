@@ -229,11 +229,9 @@ if len(user_input.replace(" ","").lower())<6:
 else:
     sql = "select * from properties where postcode ='{}' and transactions_date_dt>='{}-01-01'".format(user_input.replace(" ","").lower(), str(user_input_year))
 
-rows = run_query(sql)
+#rows = run_query(sql)
 
-rows = pd.DataFrame.from_records(cur.fetchall(), columns=['address', 'propertyType', 'bedrooms', 'bathrooms',
-       'transactions_price', 'transactions_date', 'transactions_tenure', 'lat',
-       'lgt', 'detailUrl', 'transactions_date_dt', 'postcode'])
+rows = pd.DataFrame.from_records(run_query(query))
 
 #rows['lgt'] = rows['lgt'].astype(float)
 #rows['lat'] = rows['lat'].astype(float)
