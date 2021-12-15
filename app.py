@@ -224,10 +224,10 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
-if len(postcode_s)<6:
-    sql = "select * from properties where postcode like '{}%' and transactions_date_dt>='{}-01-01'".format(postcode_s, str(user_input_year))
+if len(user_input.replace(" ","").lower())<6:
+    sql = "select * from properties where postcode like '{}%' and transactions_date_dt>='{}-01-01'".format(user_input.replace(" ","").lower(), str(user_input_year))
 else:
-    sql = "select * from properties where postcode ='{}' and transactions_date_dt>='{}-01-01'".format(postcode_s, str(user_input_year))
+    sql = "select * from properties where postcode ='{}' and transactions_date_dt>='{}-01-01'".format(user_input.replace(" ","").lower(), str(user_input_year))
 
 rows = run_query(sql)
 
