@@ -231,10 +231,12 @@ else:
 
 #rows = run_query(sql)
 
-rows = pd.DataFrame.from_records(run_query(sql))
+rows = pd.DataFrame.from_records(run_query(sql), columns=['address', 'propertyType', 'bedrooms', 'bathrooms',
+       'transactions_price', 'transactions_date', 'transactions_tenure', 'lat',
+       'lgt', 'detailUrl', 'transactions_date_dt', 'postcode'])
 
-#rows['lgt'] = rows['lgt'].astype(float)
-#rows['lat'] = rows['lat'].astype(float)
+rows['lgt'] = rows['lgt'].astype(float)
+rows['lat'] = rows['lat'].astype(float)
 ####################################
 
 if user_input != '':
